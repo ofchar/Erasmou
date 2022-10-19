@@ -1,0 +1,2 @@
+CREATE DATABASE erasmou;
+GRANT ALL PRIVILEGES ON DATABASE erasmou TO postgres;
