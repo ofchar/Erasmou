@@ -71,7 +71,7 @@ RUN chown -R www-data:www-data .
 # Autoloader and composer scripts
 RUN composer dump-autoload --optimize
 
-RUN php artisan lang:js --no-lib resources/js/lang/messages.js
+# RUN php artisan lang:js --no-lib resources/js/lang/messages.js
 
 # RUN npm run ${environment}
 
