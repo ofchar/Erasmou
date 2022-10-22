@@ -20,6 +20,7 @@ class CreateApartmentsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('description');
+            $table->string('foreign_url');
             $table->foreignId('city_id')->constrained();
             $table->string('road');
             $table->string('building_number')->nullable();
