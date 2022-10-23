@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Rateable extends Model
 {
@@ -30,4 +31,13 @@ class Rateable extends Model
     protected $hidden = [
         'id',
     ];
+
+
+    /**
+     * Get all Rates of this Rateable type.
+     */
+    public function rates() : ?Relation
+    {
+        return $this->hasMany(Rate::class);
+    }
 }

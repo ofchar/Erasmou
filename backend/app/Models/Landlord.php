@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Landlord extends Model
 {
@@ -32,4 +33,21 @@ class Landlord extends Model
         'city_id',
         'user_id',
     ];
+
+
+    /**
+     * Get main City in which this Landlord operates.
+     */
+    public function city() : Relation
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    /**
+     * Get User which added this Landlord
+     */
+    public function user() : Relation
+    {
+        return $this->belongsTo(User::class);
+    }
 }

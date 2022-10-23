@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Faculty extends Model
 {
@@ -29,4 +30,13 @@ class Faculty extends Model
         'id',
         'university_id',
     ];
+
+
+    /**
+     * Get University of this faculty.
+     */
+    public function university() : Relation
+    {
+        return $this->belongsTo(University::class);
+    }
 }

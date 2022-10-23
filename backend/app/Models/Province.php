@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Province extends Model
 {
@@ -28,4 +29,21 @@ class Province extends Model
         'id',
         'country_id',
     ];
+
+
+    /**
+     * Get Country of this Province.
+     */
+    public function country() : Relation
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * Get Cities in this Province.
+     */
+    public function cities() : ?Relation
+    {
+        return $this->hasMany(City::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Rate extends Model
 {
@@ -34,4 +35,29 @@ class Rate extends Model
         'rateable_id',
         'user_id',
     ];
+
+
+    /**
+     * Get Rateable which this Rate rates.
+     */
+    public function rateable() : Relation
+    {
+        return $this->belongsTo(Rateable::class);
+    }
+
+    /**
+     * Get the target of this Rate.
+     */
+    public function targetable() : Relation
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * Get User which wrote this Rate.
+     */
+    public function user() : Relation
+    {
+        return $this->belongsTo(User::class);
+    }
 }

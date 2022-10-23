@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class University extends Model
 {
@@ -31,4 +32,21 @@ class University extends Model
         'country_id',
         'city_id',
     ];
+
+
+    /**
+     * Get Country of this University.
+     */
+    public function country() : Relation
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * Get City of this University.
+     */
+    public function city() : Relation
+    {
+        return $this->belongsTo(City::class);
+    }
 }
