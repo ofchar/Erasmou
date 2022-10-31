@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Helpers\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class University extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -48,5 +49,13 @@ class University extends Model
     public function city() : Relation
     {
         return $this->belongsTo(City::class);
+    }
+
+    /**
+     * Get all Faculties of this University.
+     */
+    public function faculties() : ?Relation
+    {
+        return $this->hasMany(Faculty::class);
     }
 }

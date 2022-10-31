@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Helpers\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Landlord extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -49,5 +50,13 @@ class Landlord extends Model
     public function user() : Relation
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get all Apartments this Landlord has.
+     */
+    public function apartments() : ?Relation
+    {
+        return $this->hasMany(Apartment::class);
     }
 }

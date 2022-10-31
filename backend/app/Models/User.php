@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Traits\HasUuid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -11,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasUuid;
 
     const TYPE_USER = 10;
     const TYPE_FUTURE_ERASMUS = 20;
