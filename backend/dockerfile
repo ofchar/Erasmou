@@ -35,8 +35,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN a2enmod php8.1
 RUN a2enmod rewrite
 RUN a2enmod ssl
+RUN apachectl -t -D DUMP_MODULES | grep rewrite
 
 RUN a2ensite default-ssl
+# RUN a2ensite apache-config.conf
 
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
 RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/8.1/apache2/php.ini
@@ -53,11 +55,11 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 EXPOSE 443
 EXPOSE 80
 
-# Update the default apache site
-ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
-
 # From now on, work in website directory
 WORKDIR /var/www/html
+
+# Update the default apache site
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Add only composer files to run composer as a separate step from following ones
 ADD composer.json composer.lock /var/www/html/
@@ -76,4 +78,6 @@ RUN composer dump-autoload --optimize
 # RUN npm run ${environment}
 
 # Run apache
+RUN service apache2 restart
+
 CMD /usr/sbin/apache2ctl -D FOREGROUND
