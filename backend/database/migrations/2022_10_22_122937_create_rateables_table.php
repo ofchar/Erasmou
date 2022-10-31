@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRateablesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -18,9 +18,9 @@ class CreateRateablesTable extends Migration
             $table->uuid('uuid');
             $table->string('name');
             $table->string('targetable_type');
-            $table->int('data_type');
-            $table->int('min_value')->nullable();
-            $table->int('max_value')->nullable();
+            $table->integer('data_type');
+            $table->integer('min_value')->nullable();
+            $table->integer('max_value')->nullable();
             $table->timestamps();
         });
     }
@@ -34,4 +34,4 @@ class CreateRateablesTable extends Migration
     {
         Schema::dropIfExists('rateables');
     }
-}
+};

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRatesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateRatesTable extends Migration
             $table->morphs('targetable');
             $table->foreignId('rateable_id')->constrained();
             $table->string('value');
-            $table->string('comment')->nullable();
+            $table->string('comment', 1024)->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
@@ -34,4 +34,4 @@ class CreateRatesTable extends Migration
     {
         Schema::dropIfExists('rates');
     }
-}
+};

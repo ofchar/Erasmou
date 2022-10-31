@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEsnSectionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateEsnSectionsTable extends Migration
             $table->foreignId('city_id')->nullable()->constrained();
             $table->foreignId('university_id')->nullable()->constrained();
             $table->string('name');
-            $table->string('description');
+            $table->string('description', 2048);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,4 +34,4 @@ class CreateEsnSectionsTable extends Migration
     {
         Schema::dropIfExists('esn_sections');
     }
-}
+};

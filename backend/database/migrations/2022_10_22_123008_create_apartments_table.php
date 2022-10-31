@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApartmentsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -19,8 +19,8 @@ class CreateApartmentsTable extends Migration
             $table->foreignId('landlord_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('name');
-            $table->string('description');
-            $table->string('foreign_url');
+            $table->string('description', 2048);
+            $table->string('foreign_url')->nullable();
             $table->foreignId('city_id')->constrained();
             $table->string('road');
             $table->string('building_number')->nullable();
@@ -40,4 +40,4 @@ class CreateApartmentsTable extends Migration
     {
         Schema::dropIfExists('apartments');
     }
-}
+};

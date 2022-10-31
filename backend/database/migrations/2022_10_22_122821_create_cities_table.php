@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCitiesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateCitiesTable extends Migration
             $table->foreignId('country_id')->constrained();
             $table->foreignId('province_id')->nullable()->constrained();
             $table->string('name');
-            $table->string('description');
+            $table->string('description', 1024);
             $table->timestamps();
         });
     }
@@ -33,4 +33,4 @@ class CreateCitiesTable extends Migration
     {
         Schema::dropIfExists('cities');
     }
-}
+};
