@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\City;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ForumFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'city_id' => City::factory(),
+            'name' => function (array $attributes) {
+                return $this->faker->word() . ' ' . City::find($attributes['city_id'])->name . ' Forum';
+            },
+            'description' => $this->faker->paragraph(),
+        ];
+    }
+}
