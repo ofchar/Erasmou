@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Helpers\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class University extends Model
@@ -17,7 +17,6 @@ class University extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'country_id',
         'city_id',
         'name',
         'description',
@@ -30,18 +29,9 @@ class University extends Model
      */
     protected $hidden = [
         'id',
-        'country_id',
         'city_id',
     ];
 
-
-    /**
-     * Get Country of this University.
-     */
-    public function country() : Relation
-    {
-        return $this->belongsTo(Country::class);
-    }
 
     /**
      * Get City of this University.
@@ -57,5 +47,21 @@ class University extends Model
     public function faculties() : ?Relation
     {
         return $this->hasMany(Faculty::class);
+    }
+
+
+    public function scopeCityUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'city', $uuid);
+    }
+
+    public function scopeCountryUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'country', $uuid);
+    }
+
+    public function scopeSearch(Builder $query, string $search) : Builder
+    {
+        return $query->where('name', 'like', '%' . $search . '%');
     }
 }

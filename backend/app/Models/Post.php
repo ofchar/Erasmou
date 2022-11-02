@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Helpers\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Post extends Model
@@ -49,5 +49,21 @@ class Post extends Model
     public function user() : Relation
     {
         return $this->belongsTo(User::class);
+    }
+
+
+    public function scopeForumUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'forum', $uuid);
+    }
+
+    public function scopeUserUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'user', $uuid);
+    }
+
+    public function scopeSearch(Builder $query, string $search) : Builder
+    {
+        return $query->where('name', 'like', '%' . $search . '%');
     }
 }

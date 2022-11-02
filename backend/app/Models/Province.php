@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Helpers\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Province extends Model
@@ -46,5 +46,16 @@ class Province extends Model
     public function cities() : ?Relation
     {
         return $this->hasMany(City::class);
+    }
+
+
+    public function scopeCountryUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'country', $uuid);
+    }
+
+    public function scopeSearch(Builder $query, string $search) : Builder
+    {
+        return $query->where('name', 'like', '%' . $search . '%');
     }
 }

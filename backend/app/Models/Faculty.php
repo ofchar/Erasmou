@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Helpers\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Faculty extends Model
@@ -39,5 +39,19 @@ class Faculty extends Model
     public function university() : Relation
     {
         return $this->belongsTo(University::class);
+    }
+
+
+    public function scopeCountryUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'city.country', $uuid);
+    }
+
+    public function scopeSearch(Builder $query, string $search) : Builder
+    {
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhereHas('university', fn ($q) =>
+                $q->where('name', 'like', '%' . $search . '%')
+            );
     }
 }

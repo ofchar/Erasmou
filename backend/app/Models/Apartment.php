@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Helpers\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Apartment extends Model
@@ -65,5 +65,33 @@ class Apartment extends Model
     public function city() : Relation
     {
         return $this->belongsTo(City::class);
+    }
+
+
+    public function scopeLandlordUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'landlord', $uuid);
+    }
+
+    public function scopeUserUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'user', $uuid);
+    }
+
+    public function scopeCityUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'city', $uuid);
+    }
+
+    public function scopeSearch(Builder $query, string $search) : Builder
+    {
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('road', 'like', '%' . $search . '%')
+            ->orWhereHas('landlord', fn ($q) =>
+                $q->where('name', 'like', '%' . $search . '%')
+            )
+            ->orWhereHas('city', fn ($q) =>
+                $q->where('name', 'like', '%' . $search . '%')
+            );
     }
 }
