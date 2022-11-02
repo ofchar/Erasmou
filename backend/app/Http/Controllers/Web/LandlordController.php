@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\LandlordResource;
+use App\Models\Landlord;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class LandlordController extends Controller
 {
@@ -14,7 +18,22 @@ class LandlordController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(Landlord::class)
+            ->allowedFilters(
+                'name',
+                AllowedFilter::exact('phone'),
+                AllowedFilter::exact('email'),
+                AllowedFilter::exact('website'),
+                AllowedFilter::scope('city_uuid'),
+                AllowedFilter::scope('search'),
+            )
+            ->allowedSorts(
+                'name',
+                'created_at',
+            )
+            ->paginate(15);
+
+        return LandlordResource::collection($data);
     }
 
     /**

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\EsnSectionResource;
+use App\Models\EsnSection;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class EsnSectionController extends Controller
 {
@@ -14,7 +18,21 @@ class EsnSectionController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(EsnSection::class)
+            ->allowedFilters(
+                'name',
+                AllowedFilter::scope('country_uuid'),
+                AllowedFilter::scope('city_uuid'),
+                AllowedFilter::scope('university_uuid'),
+                AllowedFilter::scope('search'),
+            )
+            ->allowedSorts(
+                'name',
+                'created_at',
+            )
+            ->paginate(15);
+
+        return EsnSectionResource::collection($data);
     }
 
     /**

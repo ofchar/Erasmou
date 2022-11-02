@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\CountryResource;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CountryController extends Controller
 {
@@ -14,7 +17,18 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(Country::class)
+            ->allowedFilters(
+                'name',
+                AllowedFilter::exact('code')
+            )
+            ->allowedSorts(
+                'name',
+                'created_at',
+            )
+            ->paginate(15);
+
+        return CountryResource::collection($data);
     }
 
     /**

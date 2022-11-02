@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\ForumResource;
+use App\Models\Forum;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ForumController extends Controller
 {
@@ -14,7 +18,19 @@ class ForumController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(Forum::class)
+            ->allowedFilters(
+                'name',
+                AllowedFilter::scope('city_uuid'),
+                AllowedFilter::scope('search'),
+            )
+            ->allowedSorts(
+                'name',
+                'created_at',
+            )
+            ->paginate(15);
+
+        return ForumResource::collection($data);
     }
 
     /**

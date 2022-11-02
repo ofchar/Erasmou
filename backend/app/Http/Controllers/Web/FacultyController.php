@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\FacultyResource;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class FacultyController extends Controller
 {
@@ -14,7 +18,19 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(Faculty::class)
+            ->allowedFilters(
+                'name',
+                AllowedFilter::scope('university_uuid'),
+                AllowedFilter::scope('search'),
+            )
+            ->allowedSorts(
+                'name',
+                'created_at',
+            )
+            ->paginate(15);
+
+        return FacultyResource::collection($data);
     }
 
     /**

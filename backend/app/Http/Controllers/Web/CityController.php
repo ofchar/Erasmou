@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\CityResource;
+use App\Models\City;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CityController extends Controller
 {
@@ -14,7 +18,20 @@ class CityController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(City::class)
+            ->allowedFilters(
+                'name',
+                AllowedFilter::scope('country_uuid'),
+                AllowedFilter::scope('province_uuid'),
+                AllowedFilter::scope('search'),
+            )
+            ->allowedSorts(
+                'name',
+                'created_at',
+            )
+            ->paginate(15);
+
+        return CityResource::collection($data);
     }
 
     /**

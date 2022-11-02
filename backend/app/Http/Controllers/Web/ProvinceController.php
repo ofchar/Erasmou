@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\ProvinceResource;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ProvinceController extends Controller
 {
@@ -14,7 +17,18 @@ class ProvinceController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(Province::class)
+            ->allowedFilters(
+                'name',
+                AllowedFilter::scope('country_uuid'),
+                AllowedFilter::scope('search'),
+            )
+            ->allowedSorts(
+                'created_at',
+            )
+            ->paginate(15);
+
+        return ProvinceResource::collection($data);
     }
 
     /**

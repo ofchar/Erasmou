@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\PostResource;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PostController extends Controller
 {
@@ -14,7 +18,19 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $data = QueryBuilder::for(Post::class)
+            ->allowedFilters(
+                'title',
+                AllowedFilter::scope('forum_uuid'),
+                AllowedFilter::scope('user_uuid'),
+                AllowedFilter::scope('search'),
+            )
+            ->allowedSorts(
+                'created_at',
+            )
+            ->paginate(15);
+
+        return PostResource::collection($data);
     }
 
     /**
