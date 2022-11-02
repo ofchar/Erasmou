@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('landlords', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->string('name')->nullable();
             $table->foreignId('city_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('phone')->nullable();

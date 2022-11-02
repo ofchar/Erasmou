@@ -16,6 +16,7 @@ class LandlordFactory extends Factory
     public function definition()
     {
         return [
+            'name' => $this->faker->boolean(60) ? $this->faker->name() : $this->faker->company(),
             'user_id' => User::factory(),
             'city_id' => City::factory(),
             'phone' => $this->faker->phoneNumber(),

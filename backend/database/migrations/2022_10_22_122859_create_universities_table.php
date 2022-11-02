@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('universities', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->foreignId('country_id')->constrained();
             $table->foreignId('city_id')->constrained();
             $table->string('name');
             $table->string('description', 2048);
