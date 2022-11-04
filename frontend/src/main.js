@@ -8,4 +8,7 @@ import "bootstrap"
 import router from './routes';
 Vue.use(router);
 
+import api from './services/apiWrapper';
+Vue.config.globalProperties.$api = new api('http://localhost:6969/webapi');
+
 Vue.mount("#app");
