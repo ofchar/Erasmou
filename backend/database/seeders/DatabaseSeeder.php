@@ -2,13 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
-use App\Models\Country;
-use App\Models\EsnSection;
-use App\Models\Forum;
-use App\Models\Landlord;
-use App\Models\University;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Log;
 
@@ -21,47 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    Log::info('Seeding database');
+        $this->call(CountrySeeder::class);
 
-        Country::factory(5)
-            ->hasProvinces(rand(0, 10))
-            ->create();
-    Log::info('10%');
+        $this->call(CitySeeder::class);
 
-        City::factory(20)
-            ->recycle(Country::all())
-            ->create();
-    Log::info('20%');
+        $this->call(UniversitySeeder::class);
 
-        University::factory(40)
-            ->recycle(City::all())
-            ->hasFaculties(rand(0, 5))
-            ->create();
-    Log::info('30%');
+        $this->call(UserSeeder::class);
 
-        User::factory(20)
-            ->recycle(City::all())
-            ->create();
-    Log::info('40%');
+        $this->call(LandlordSeeder::class);
 
-        Landlord::factory(20)
-            ->recycle(User::all())
-            ->recycle(City::all())
-            ->hasApartments(rand(0, 5))
-            ->create();
-    Log::info('60%');
+        $this->call(EsnSectionSeeder::class);
 
-        EsnSection::factory(30)
-            ->recycle(University::all())
-            ->recycle(City::all())
-            ->create();
-    Log::info('80%');
-
-        Forum::factory(10)
-            ->recycle(City::all())
-            ->hasPosts(rand(0, 10))
-            ->create();
-
-    Log::info('100%');
+        $this->call(ForumSeeder::class);
     }
 }

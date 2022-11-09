@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
+use App\Models\University;
 use Illuminate\Database\Seeder;
 
 class UniversitySeeder extends Seeder
@@ -13,6 +15,9 @@ class UniversitySeeder extends Seeder
      */
     public function run()
     {
-        //
+        University::factory(40)
+            ->recycle(City::all())
+            ->hasFaculties(rand(0, 5))
+            ->create();
     }
 }

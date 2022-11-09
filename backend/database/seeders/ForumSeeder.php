@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
+use App\Models\Forum;
 use Illuminate\Database\Seeder;
 
 class ForumSeeder extends Seeder
@@ -13,6 +15,9 @@ class ForumSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Forum::factory(10)
+            ->recycle(City::all())
+            ->hasPosts(rand(0, 10))
+            ->create();
     }
 }

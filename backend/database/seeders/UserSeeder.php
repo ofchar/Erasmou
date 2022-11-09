@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\City;
-use App\Models\EsnSection;
-use App\Models\University;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class EsnSectionSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,8 +15,7 @@ class EsnSectionSeeder extends Seeder
      */
     public function run()
     {
-        EsnSection::factory(30)
-            ->recycle(University::all())
+        User::factory(20)
             ->recycle(City::all())
             ->create();
     }
