@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('code', 2);
             $table->string('flag_url')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

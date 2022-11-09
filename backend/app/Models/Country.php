@@ -19,6 +19,7 @@ class Country extends Model
         'name',
         'code',
         'flag_url',
+        'description',
     ];
 
     /**
