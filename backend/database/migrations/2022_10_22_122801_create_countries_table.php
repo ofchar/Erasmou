@@ -18,6 +18,7 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->string('name');
             $table->string('code', 2);
+            $table->string('flag_url')->nullable();
             $table->timestamps();
         });
     }
