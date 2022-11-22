@@ -12,13 +12,13 @@
 
                 <ul class="navbar-nav ps-3 me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link class='nav-link' to="countries">Countries</router-link>
+                        <router-link class='nav-link' to="/countries">Countries</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class='nav-link' to="cities">Cities</router-link>
+                        <router-link class='nav-link' to="/cities">Cities</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class='nav-link' to="universities">Universities</router-link>
+                        <router-link class='nav-link' to="/universities">Universities</router-link>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
