@@ -7,6 +7,17 @@ use Illuminate\Support\Str;
 trait HasUuid
 {
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     *
+     */
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    /**
      * The "booted" method of the model.
      *
      * @return void
