@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Web\ApartmentController;
+use App\Http\Controllers\Web\CityController;
 use App\Http\Controllers\Web\CountryController;
+use App\Http\Controllers\Web\ProvinceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +29,9 @@ header('Access-Control-Allow-Origin: *');
 
 
 Route::apiResource('countries', CountryController::class);
+
+Route::apiResource('cities', CityController::class);
+
+Route::apiResource('provinces', ProvinceController::class);
 
 Route::apiResource('apartments', ApartmentController::class);
