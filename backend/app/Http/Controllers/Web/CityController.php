@@ -29,6 +29,9 @@ class CityController extends Controller
                 'name',
                 'created_at',
             )
+            ->with('country')
+            ->with('province')
+            ->withCount('universities')
             ->paginate(15);
 
         return CityResource::collection($data);
