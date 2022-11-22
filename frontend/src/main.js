@@ -1,6 +1,15 @@
 import { createApp } from 'vue'
 import App from './pages/App.vue'
-const Vue = createApp(App);
+
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { faFaceSmile, faFaceMeh, faFaceFrown } from '@fortawesome/free-regular-svg-icons'
+library.add(faFaceSmile, faFaceMeh, faFaceFrown);
+
+const Vue = createApp(App)
+    .component('font-awesome-icon', FontAwesomeIcon);
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
