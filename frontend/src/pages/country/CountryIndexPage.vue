@@ -1,12 +1,12 @@
 <template>
     <div>
         <div class="container row justify-content-center row-cols-1 row-cols-md-1 g-4">
-            <div class="card mb-2 bg-secondary" v-for="country in countries">
+            <div class="card mb-2 bg-secondary text-white" v-for="country in countries">
                 <img :src="country.flag_url" class="card-img-top" />
                 <div class="card-body">
-                    <h5 class="card-title">{{ country.name }}</h5>
-                    <p class="card-text">{{ country.description }}</p>
-                    <a href="#" class="btn btn-dark">Country page</a>
+                    <h5 class="card-title fs-3">{{ country.name }}</h5>
+                    <p class="card-text fs-5">{{ country.description }}</p>
+                    <router-link class='btn btn-dark' :to="{name: 'countries-show', params: {uuid: country.uuid}}">Country page</router-link>
                 </div>
             </div>
         </div>
@@ -64,6 +64,6 @@ export default {
 
 .card img {
     width: 25%;
-    height: 90%;
+    height: 75%;
 }
 </style>

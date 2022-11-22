@@ -17,8 +17,10 @@ export default class api {
         })
     }
 
-    show(model, id) {
-        return axios.get(this.url + '/' + model + '/' + id, {})
+    show(model, id, params = null) {
+        return this.instance.get(model + '/' + id, {
+            params: params
+        })
     }
 
     update(model, id, data) {

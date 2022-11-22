@@ -1,6 +1,11 @@
 import { createWebHistory, createRouter } from "vue-router";
 import DashboardPage from '../pages/dashboard/DashboardPage.vue';
+
 import CountryIndexPage from '../pages/country/CountryIndexPage.vue';
+import CountryShowPage from '../pages/country/CountryShowPage.vue';
+
+import CityIndexPage from '../pages/city/CityIndexPage.vue';
+
 
 const routes = [
     {
@@ -24,10 +29,22 @@ const routes = [
     //         next(handleLogged('/'))
     //     },
     // },
+
     {
         path: "/countries",
         name: "countries",
         component: CountryIndexPage,
+    },
+    {
+        path: "/countries/:uuid",
+        name: "countries-show",
+        component: CountryShowPage,
+    },
+
+    {
+        path: "/cities",
+        name: "cities",
+        component: CityIndexPage,
     },
 ];
 
