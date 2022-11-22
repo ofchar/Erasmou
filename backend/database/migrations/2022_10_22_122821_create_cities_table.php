@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('province_id')->nullable()->constrained();
             $table->string('name');
             $table->string('description', 1024);
+            $table->integer('population');
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@ class CityFactory extends Factory
             },
             'name' => $this->faker->city(),
             'description' => $this->faker->paragraph(),
+            'population' => random_int(75000, 7500000),
         ];
     }
 }

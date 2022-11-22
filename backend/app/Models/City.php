@@ -21,6 +21,7 @@ class City extends Model
         'province_id',
         'name',
         'description',
+        'population',
     ];
 
     /**

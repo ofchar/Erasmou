@@ -16,6 +16,7 @@ class CountryFactory extends Factory
         return [
             'name' => $this->faker->country(),
             'code' => $this->faker->countryCode(),
+            'population' => random_int(5000000, 100000000),
         ];
     }
 }
