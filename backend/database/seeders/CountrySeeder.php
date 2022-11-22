@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Country;
+use App\Models\Province;
 use Illuminate\Database\Seeder;
 
 class CountrySeeder extends Seeder
@@ -16,6 +17,7 @@ class CountrySeeder extends Seeder
     {
         Country::factory()
             ->hasProvinces(16)
+            ->hasCities(40)
             ->create([
                 'name' => 'Poland',
                 'code' => 'PL',
@@ -24,7 +26,8 @@ class CountrySeeder extends Seeder
             ]);
 
         Country::factory()
-            ->hasProvinces(rand(0, 10))
+            ->hasProvinces(20)
+            ->hasCities(60)
             ->create([
                 'name' => 'Italy',
                 'code' => 'IT',
@@ -33,7 +36,7 @@ class CountrySeeder extends Seeder
             ]);
 
         Country::factory()
-            ->hasProvinces(0)
+            ->hasCities(50)
             ->create([
                 'name' => 'Mexico',
                 'code' => 'MX',
@@ -42,8 +45,8 @@ class CountrySeeder extends Seeder
             ]);
 
 
-        Country::factory(3)
-            ->hasProvinces(rand(0, 10))
-            ->create();
+        // Country::factory(3)
+        //     ->hasProvinces(rand(0, 10))
+        //     ->create();
     }
 }
