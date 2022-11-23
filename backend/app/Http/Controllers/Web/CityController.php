@@ -14,9 +14,10 @@ class CityController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = QueryBuilder::for(City::class)
             ->allowedFilters(
@@ -27,12 +28,14 @@ class CityController extends Controller
             )
             ->allowedSorts(
                 'name',
+                'population',
                 'created_at',
             )
+            ->defaultSort('-population')
             ->with('country')
             ->with('province')
             ->withCount('universities')
-            ->paginate(15);
+            ->paginate($request->per_page ?? 15);
 
         return CityResource::collection($data);
     }
