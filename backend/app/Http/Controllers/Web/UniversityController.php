@@ -28,6 +28,8 @@ class UniversityController extends Controller
             ->allowedSorts(
                 'created_at',
             )
+            ->with('city')
+            ->with('faculties')
             ->paginate(15);
 
         return UniversityResource::collection($data);

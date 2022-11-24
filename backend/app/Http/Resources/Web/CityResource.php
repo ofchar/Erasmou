@@ -21,7 +21,7 @@ class CityResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'population' => $this->population,
-            'universities' => $this->universities_count,
+            'universities' => UniversityResource::collection($this->universities),
         ];
     }
 }

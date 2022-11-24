@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\ApartmentController;
 use App\Http\Controllers\Web\CityController;
 use App\Http\Controllers\Web\CountryController;
 use App\Http\Controllers\Web\ProvinceController;
+use App\Http\Controllers\Web\UniversityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,5 +34,7 @@ Route::apiResource('countries', CountryController::class);
 Route::apiResource('cities', CityController::class);
 
 Route::apiResource('provinces', ProvinceController::class);
+
+Route::apiResource('universities', UniversityController::class);
 
 Route::apiResource('apartments', ApartmentController::class);

@@ -34,7 +34,7 @@ class CityController extends Controller
             ->defaultSort('-population')
             ->with('country')
             ->with('province')
-            ->withCount('universities')
+            ->with('universities')
             ->paginate($request->per_page ?? 15);
 
         return CityResource::collection($data);
@@ -64,12 +64,12 @@ class CityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(City $city)
     {
-        //
+        return new CityResource($city);
     }
 
     /**
