@@ -17,7 +17,8 @@ class Forum extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'city_id',
+        'forumable_type',
+        'forumable_id',
         'name',
         'description',
     ];
@@ -29,16 +30,16 @@ class Forum extends Model
      */
     protected $hidden = [
         'id',
-        'city_id',
+        'forumable_id',
     ];
 
 
     /**
-     * Get City which this Forum concerns.
+     * Get City/University to which this Forum concerns.
      */
-    public function city() : ?Relation
+    public function forumable() : ?Relation
     {
-        return $this->belongsTo(City::class);
+        return $this->morphTo('forumable');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\City;
+use App\Models\University;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ForumFactory extends Factory
@@ -14,10 +15,18 @@ class ForumFactory extends Factory
      */
     public function definition()
     {
+        $forumables = [
+            City::class,
+            University::class,
+        ];
+
+        $forumable = $this->faker->randomElement($forumables);
+
         return [
-            'city_id' => City::factory(),
-            'name' => function (array $attributes) {
-                return $this->faker->word() . ' ' . City::find($attributes['city_id'])->name . ' Forum';
+            'forumable_type' => $forumable,
+            'forumable_id' => $forumable::factory(),
+            'name' => function (array $attributes) use ($forumable) {
+                return $this->faker->word() . ' ' . $forumable::find($attributes['forumable_id'])->name . ' Forum';
             },
             'description' => $this->faker->paragraph(),
         ];
