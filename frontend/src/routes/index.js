@@ -5,6 +5,7 @@ import CountryIndexPage from '../pages/country/CountryIndexPage.vue';
 import CountryShowPage from '../pages/country/CountryShowPage.vue';
 
 import CityIndexPage from '../pages/city/CityIndexPage.vue';
+import CityShowPage from '../pages/city/CityShowPage.vue';
 
 
 const routes = [
@@ -45,6 +46,11 @@ const routes = [
         path: "/cities",
         name: "cities",
         component: CityIndexPage,
+    },
+    {
+        path: "/cities/:uuid",
+        name: "cities-show",
+        component: CityShowPage,
     },
 ];
 

@@ -1,19 +1,19 @@
 <template>
     <div>
-        <div class="card text-start mt-3 bg-secondary text-white">
+        <div class="card text-start mt-3 bg-secondary text-white" v-if="city">
             <h5 class="card-header">Info</h5>
             <div class="card-body">
-                <h5 class="card-title">{{ country.name }}</h5>
-                <p class="card-text">{{ country.description }}</p>
+                <h5 class="card-title">{{ city.name }}</h5>
+                <p class="card-text">{{ city.description }}</p>
             </div>
         </div>
 
         <div class="card text-start mt-3 bg-secondary text-white">
             <div class="card-header">
                 <div class="row align-items-center justify-content-between">
-                    <div class="col-md-4 mt-auto"><h5>Cities</h5></div>
+                    <div class="col-md-4 mt-auto"><h5>Universities</h5></div>
                     <div class="col-md-4 text-end mt-auto">
-                        <input class="form-control" v-model="citiesSearch" placeholder="search">
+                        <input class="form-control" v-model="universitiesSearch" placeholder="search">
                     </div>
                 </div>
             </div>
@@ -33,41 +33,38 @@
                     </div>
                 </div>
 
-                <div v-for="city in cities">
-                    <div class="hvr p-1">
+                <div v-for="university in universities">
+                    <div class="hvr p-1" @mouseenter="university.collapsed = true" @mouseleave="university.collapsed = false">
                         <div class="row m-2 align-items-center text-center">
                             <div class="col-md-3 text-start">
                                 <div class="row">
-                                    {{ city.name }}
+                                    {{ university.name }}
                                 </div>
                                 <div class="row">
-                                    <small>{{ city.province}}</small>
+                                    <small>{{ university.province}}</small>
                                 </div>
                             </div>
-                            <div class="col-md-2">{{ format(city.population) }}</div>
+                            <div class="col-md-2">{{ university.population }}</div>
                             <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
                             <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
                             <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-2">{{ city.universities }}</div>
+                            <div class="col-md-2">{{ university.universities }}</div>
                             <div class="col-md-2">1</div>
                         </div>
                     </div>
+                    <CollapseTransition>
+                        <div class="container hvred" v-show="university.collapsed">
+                            <div class="row p-2 m-2" v-for="faculty in university.faculties">
+                                {{faculty.name}}
+                            </div>
+                        </div>
+                    </CollapseTransition>
                 </div>
             </div>
             <div class="card-footer">
-                Showing {{ citiesMeta.from }} to {{ citiesMeta.to }} of {{ citiesMeta.total }} total
+                Showing {{ universities.from }} to {{ universities.to }} of {{ universities.total }} total
             </div>
         </div>
-
-        <div class="card text-start mt-3 bg-secondary text-white">
-            <h5 class="card-header">Universities</h5>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-
     </div>
 </template>
 
@@ -75,10 +72,12 @@
 import { numberify } from '@/services/utils.js'
 
 import RankIconDisplayComponentVue from '@/components/utils/RankIconDisplayComponent.vue';
+import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue'
 
 export default {
     components: {
         RankIconDisplayComponentVue,
+        CollapseTransition,
     },
     props: [
         //
@@ -87,17 +86,17 @@ export default {
     data() {
         return {
             uuid: null,
-            country: [],
+            city: null,
 
-            cities: [],
-            citiesMeta: [],
-            citiesSearch: null,
+            universities: [],
+            universitiesMeta: [],
+            universitiesSearch: null,
         }
     },
 
     watch: {
-        citiesSearch: function (value) {
-            this.loadCities(value);
+        universitiesSearch: function (value) {
+            this.loadUniversities(value);
         }
     },
     computed: {
@@ -105,23 +104,23 @@ export default {
     },
 
     methods: {
-        loadCountry: function () {
+        loadCity: function () {
             this.$api
-                .show('countries', this.uuid)
+                .show('cities', this.uuid)
                 .then((response) => {
-                    this.country = response.data.data;
+                    this.city = response.data.data;
                 });
         },
 
-        loadCities: function (search) {
+        loadUniversities: function (search) {
             this.$api
-                .index('cities', {
-                    'filter[country_uuid]': this.uuid,
+                .index('universities', {
+                    'filter[city_uuid]': this.uuid,
                     'filter[search]': search,
                 })
                 .then((response) => {
-                    this.cities = response.data.data;
-                    this.citiesMeta = response.data.meta;
+                    this.universities = response.data.data;
+                    this.universitiesMeta = response.data.meta;
                 })
         },
 
@@ -133,8 +132,8 @@ export default {
     mounted() {
         this.uuid = this.$route.params.uuid;
 
-        this.loadCountry();
-        this.loadCities();
+        this.loadCity();
+        this.loadUniversities();
     },
 }
 </script>
@@ -144,6 +143,10 @@ export default {
     background-color: gray;
     color: greenyellow;
     transition-duration: 0.3s;
+}
+
+.hvred {
+    background-color: #707070;
 }
 
 .bordered {
