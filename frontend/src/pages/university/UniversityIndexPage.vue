@@ -8,7 +8,7 @@
                         <input class="form-control" v-model="search" placeholder="search"/>
                     </div>
                     <div class="col">
-                        <SelectComponent route='countries' v-model="countryQuery"/>
+                        <SelectComponent route='cities' v-model="cityQuery"/>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@ export default {
             universities: null,
 
             search: null,
-            countryQuery: null,
+            cityQuery: null,
         }
     },
 
@@ -76,7 +76,7 @@ export default {
         search: function () {
             this.loadUniversities();
         },
-        countryQuery: function () {
+        cityQuery: function () {
             this.loadUniversities();
         }
     },
@@ -89,7 +89,7 @@ export default {
             this.$api
                 .index('universities', {
                     'filter[search]': this.search,
-                    // 'filter[country_uuid]': this.countryQuery ? this.countryQuery.uuid : null,
+                    'filter[city_uuid]': this.cityQuery ? this.cityQuery.uuid : null,
                     'per_page': 16,
                 })
                 .then((response) => {

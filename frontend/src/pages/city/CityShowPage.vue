@@ -67,6 +67,8 @@
         </div>
 
         <DiscussionComponent v-if="uuid" :type="1" :uuid="uuid"/>
+
+        <ApartmentDisplayComponent v-if="uuid" :uuid="uuid"/>
     </div>
 </template>
 
@@ -76,12 +78,14 @@ import { numberify } from '@/services/utils.js'
 import RankIconDisplayComponentVue from '@/components/utils/RankIconDisplayComponent.vue';
 import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 import DiscussionComponent from '@/components/forum/DiscussionComponent.vue';
+import ApartmentDisplayComponent from '@/components/apartment/ApartmentDisplayComponent.vue';
 
 export default {
     components: {
         RankIconDisplayComponentVue,
         CollapseTransition,
         DiscussionComponent,
+        ApartmentDisplayComponent,
     },
     props: [
         //
