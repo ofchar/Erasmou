@@ -8,8 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faFaceSmile, faFaceMeh, faFaceFrown } from '@fortawesome/free-regular-svg-icons'
 library.add(faFaceSmile, faFaceMeh, faFaceFrown);
 
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+
 const Vue = createApp(App)
-    .component('font-awesome-icon', FontAwesomeIcon);
+    .component('font-awesome-icon', FontAwesomeIcon)
+    .component('v-select', vSelect);
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
