@@ -7,6 +7,8 @@ import CountryShowPage from '../pages/country/CountryShowPage.vue';
 import CityIndexPage from '../pages/city/CityIndexPage.vue';
 import CityShowPage from '../pages/city/CityShowPage.vue';
 
+import UniversityIndexPage from '../pages/university/UniversityIndexPage.vue';
+import UniversityShowPage from '../pages/university/UniversityShowPage.vue';
 
 const routes = [
     {
@@ -51,6 +53,17 @@ const routes = [
         path: "/cities/:uuid",
         name: "cities-show",
         component: CityShowPage,
+    },
+
+    {
+        path: "/universities",
+        name: "universities",
+        component: UniversityIndexPage,
+    },
+    {
+        path: "/universities/:uuid",
+        name: "universities-show",
+        component: UniversityShowPage,
     },
 ];
 

@@ -65,6 +65,8 @@
                 Showing {{ universities.from }} to {{ universities.to }} of {{ universities.total }} total
             </div>
         </div>
+
+        <DiscussionComponent v-if="uuid" :type="1" :uuid="uuid"/>
     </div>
 </template>
 
@@ -72,12 +74,14 @@
 import { numberify } from '@/services/utils.js'
 
 import RankIconDisplayComponentVue from '@/components/utils/RankIconDisplayComponent.vue';
-import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue'
+import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
+import DiscussionComponent from '@/components/forum/DiscussionComponent.vue';
 
 export default {
     components: {
         RankIconDisplayComponentVue,
         CollapseTransition,
+        DiscussionComponent,
     },
     props: [
         //

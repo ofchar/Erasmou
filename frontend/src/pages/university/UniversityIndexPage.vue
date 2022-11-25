@@ -15,15 +15,15 @@
         </div>
 
         <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
-            <div class="col" v-for="city in cities" v-if="cities">
+            <div class="col" v-for="university in universities" v-if="universities">
                 <div class="card h-100 bg-secondary text-white"
-                    @mouseenter="city.isHovering = true"
-                    @mouseleave="city.isHovering = false">
+                    @mouseenter="university.isHovering = true"
+                    @mouseleave="university.isHovering = false">
                     <div class="card-body">
-                        <h4 class="card-title">{{ city.name }}</h4>
-                        <p class="card-text text-start">{{ city.description }}</p>
+                        <h4 class="card-title">{{ university.name }}</h4>
+                        <p class="card-text text-start">{{ university.description }}</p>
                         <div class="container justify-content-start m-2 mt-4">
-                            <div class="row text-start" v-for="university in city.universities">
+                            <div class="row text-start" v-for="university in university.universities">
                                 <div class="col">
                                     {{ university.name }}
                                 </div>
@@ -31,18 +31,18 @@
                         </div>
                         <div class="row align-items-center mt-4">
                             <div class="col-4 align-middle">
-                                <RankInfoDisplayComponentVue value="1" text="overall" :hovers="city.isHovering"/>
+                                <RankInfoDisplayComponentVue value="1" text="overall" :hovers="university.isHovering"/>
                             </div>
                             <div class="col-4">
-                                <RankInfoDisplayComponentVue value="-1" text="prices" :hovers="city.isHovering"/>
+                                <RankInfoDisplayComponentVue value="-1" text="prices" :hovers="university.isHovering"/>
                             </div>
                             <div class="col-4">
-                                <RankInfoDisplayComponentVue value="1" text="funnes" :hovers="city.isHovering"/>
+                                <RankInfoDisplayComponentVue value="1" text="funnes" :hovers="university.isHovering"/>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <router-link class='btn btn-dark px-5' :to="{name: 'cities-show', params: {uuid: city.uuid}}">Details</router-link>
+                        <router-link class='btn btn-dark px-5' :to="{name: 'universities-show', params: {uuid: university.uuid}}">Details</router-link>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@ export default {
 
     data() {
         return {
-            cities: null,
+            universities: null,
 
             search: null,
             countryQuery: null,
@@ -74,10 +74,10 @@ export default {
 
     watch: {
         search: function () {
-            this.loadCities();
+            this.loadUniversities();
         },
         countryQuery: function () {
-            this.loadCities();
+            this.loadUniversities();
         }
     },
     computed: {
@@ -85,22 +85,22 @@ export default {
     },
 
     methods: {
-        loadCities: function () {
+        loadUniversities: function () {
             this.$api
-                .index('cities', {
+                .index('universities', {
                     'filter[search]': this.search,
-                    'filter[country_uuid]': this.countryQuery ? this.countryQuery.uuid : null,
+                    // 'filter[country_uuid]': this.countryQuery ? this.countryQuery.uuid : null,
                     'per_page': 16,
                 })
                 .then((response) => {
-                    this.cities = response.data.data;
-                    this.cities.isHovering = false;
+                    this.universities = response.data.data;
+                    this.universities.isHovering = false;
                 })
         }
     },
 
     mounted() {
-        this.loadCities();
+        this.loadUniversities();
     },
 }
 </script>

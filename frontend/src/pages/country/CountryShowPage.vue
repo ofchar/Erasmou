@@ -48,7 +48,7 @@
                             <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
                             <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
                             <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-2">{{ city.universities }}</div>
+                            <div class="col-md-2">{{ city.universities.length }}</div>
                             <div class="col-md-2">1</div>
                         </div>
                     </div>
@@ -59,14 +59,15 @@
             </div>
         </div>
 
-        <div class="card text-start mt-3 bg-secondary text-white">
+
+        <!-- <div class="card text-start mt-3 bg-secondary text-white">
             <h5 class="card-header">Universities</h5>
             <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </template>
@@ -75,10 +76,12 @@
 import { numberify } from '@/services/utils.js'
 
 import RankIconDisplayComponentVue from '@/components/utils/RankIconDisplayComponent.vue';
+import DiscussionComponentVue from '@/components/forum/DiscussionComponent.vue';
 
 export default {
     components: {
         RankIconDisplayComponentVue,
+        DiscussionComponentVue,
     },
     props: [
         //
