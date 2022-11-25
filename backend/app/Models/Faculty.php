@@ -42,9 +42,9 @@ class Faculty extends Model
     }
 
 
-    public function scopeCountryUuid(Builder $query, string $uuid) : Builder
+    public function scopeUniversityUuid(Builder $query, string $uuid) : Builder
     {
-        return $this->baseUuidScope($query, 'city.country', $uuid);
+        return $this->baseUuidScope($query, 'university', $uuid);
     }
 
     public function scopeSearch(Builder $query, string $search) : Builder

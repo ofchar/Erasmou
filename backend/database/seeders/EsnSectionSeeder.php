@@ -16,7 +16,7 @@ class EsnSectionSeeder extends Seeder
      */
     public function run()
     {
-        EsnSection::factory(30)
+        EsnSection::factory(100)
             ->recycle(University::all())
             ->recycle(City::all())
             ->create();

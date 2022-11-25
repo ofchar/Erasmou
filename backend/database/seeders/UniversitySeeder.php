@@ -15,7 +15,7 @@ class UniversitySeeder extends Seeder
      */
     public function run()
     {
-        University::factory(350)
+        University::factory(100)
             ->recycle(City::all())
             ->hasFaculties(rand(0, 5))
             ->create();

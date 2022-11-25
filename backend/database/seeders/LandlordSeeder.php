@@ -16,7 +16,7 @@ class LandlordSeeder extends Seeder
      */
     public function run()
     {
-        Landlord::factory(20)
+        Landlord::factory(200)
             ->recycle(User::all())
             ->recycle(City::all())
             ->hasApartments(rand(0, 5))
