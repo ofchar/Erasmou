@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Apartment;
+use App\Models\Rate;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class RateSeeder extends Seeder
@@ -13,6 +16,8 @@ class RateSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Rate::factory(500)
+            ->recycle(User::all())
+            ->create();
     }
 }

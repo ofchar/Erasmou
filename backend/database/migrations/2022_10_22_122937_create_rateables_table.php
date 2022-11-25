@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('targetable_type');
             $table->integer('data_type');
+            $table->string('description');
             $table->integer('min_value')->nullable();
             $table->integer('max_value')->nullable();
             $table->timestamps();

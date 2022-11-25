@@ -9,6 +9,10 @@ class Rateable extends Model
 {
     use HasFactory;
 
+    const TYPE_INT = 1;
+    const TYPE_FLOAT = 2;
+    const TYPE_STRING = 3;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,6 +22,7 @@ class Rateable extends Model
         'name',
         'targetable_type',
         'data_type',
+        'description',
         'min_value',
         'max_value',
     ];
