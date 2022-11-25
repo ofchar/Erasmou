@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\ApartmentController;
 use App\Http\Controllers\Web\CityController;
 use App\Http\Controllers\Web\CountryController;
+use App\Http\Controllers\Web\ForumController;
 use App\Http\Controllers\Web\ProvinceController;
 use App\Http\Controllers\Web\UniversityController;
 use Illuminate\Http\Request;
@@ -36,5 +37,7 @@ Route::apiResource('cities', CityController::class);
 Route::apiResource('provinces', ProvinceController::class);
 
 Route::apiResource('universities', UniversityController::class);
+
+Route::apiResource('forums', ForumController::class);
 
 Route::apiResource('apartments', ApartmentController::class);

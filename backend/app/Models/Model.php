@@ -13,4 +13,11 @@ class Model extends EloquentModel
             $q->whereUuid($uuid)
         );
     }
+
+    public function baseMorphUuidScope(Builder $query, string $relationName, string $uuid) : Builder
+    {
+        return $query->whereHasMorph($relationName, '*', fn ($q) =>
+            $q->whereUuid($uuid)
+        );
+    }
 }

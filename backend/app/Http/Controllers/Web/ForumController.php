@@ -21,13 +21,16 @@ class ForumController extends Controller
         $data = QueryBuilder::for(Forum::class)
             ->allowedFilters(
                 'name',
-                AllowedFilter::scope('city_uuid'),
+                AllowedFilter::exact('forumable_type'),
+                AllowedFilter::scope('forumable_uuid'),
                 AllowedFilter::scope('search'),
             )
             ->allowedSorts(
                 'name',
                 'created_at',
             )
+            ->with('post')
+            ->withCount('posts')
             ->paginate(15);
 
         return ForumResource::collection($data);

@@ -39,7 +39,7 @@ class Forum extends Model
      */
     public function forumable() : ?Relation
     {
-        return $this->morphTo('forumable');
+        return $this->morphTo();
     }
 
     /**
@@ -50,10 +50,18 @@ class Forum extends Model
         return $this->hasMany(Post::class);
     }
 
-
-    public function scopeCityUuid(Builder $query, string $uuid) : Builder
+    /**
+     * Get latest Post of this Forum.
+     */
+    public function post() : ?Relation
     {
-        return $this->baseUuidScope($query, 'city', $uuid);
+        return $this->hasOne(Post::class)->orderBy('created_at', 'desc');
+    }
+
+
+    public function scopeForumableUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseMorphUuidScope($query, 'forumable', $uuid);
     }
 
     public function scopeSearch(Builder $query, string $search) : Builder

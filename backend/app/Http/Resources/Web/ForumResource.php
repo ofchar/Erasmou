@@ -14,6 +14,16 @@ class ForumResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'uuid' => $this->uuid,
+            'forumable_type' => $this->forumable_type,
+            'forumable_uuid' => $this->forumable->uuid,
+            'name' => $this->name,
+            'description' => $this->description,
+            'post' => $this->post ? [
+                'title' => $this->post->title,
+            ] : null,
+            'posts_count' => $this->posts_count,
+        ];
     }
 }

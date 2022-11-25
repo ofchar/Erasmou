@@ -15,9 +15,9 @@ class ForumSeeder extends Seeder
      */
     public function run()
     {
-        Forum::factory(10)
+        Forum::factory(1000)
             ->recycle(City::all())
-            ->hasPosts(rand(0, 10))
+            ->hasPosts(rand(0, 15))
             ->create();
     }
 }
