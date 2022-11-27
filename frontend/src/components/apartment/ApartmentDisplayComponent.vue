@@ -24,10 +24,11 @@
                         <div class="row m-2 align-items-center text-center">
                             <div class="col-4 text-start">{{ apartment.name }}</div>
                             <div class="col-2">
-                                <RankInfoDisplayComponent :value="1" text="2000" :hovers="apartment.collapsed"/>
+                                <RankInfoDisplayComponent :value="-1" text="2000" :hovers="apartment.collapsed"/>
                             </div>
                             <div class="col-2">
-                                <RankInfoDisplayComponent :value="1" text="2000" :hovers="apartment.collapsed"/>
+                                <RankInfoDisplayComponent :value="apartment.Cleanliness" :text="apartment.Cleanliness_original" :hovers="apartment.collapsed"/>
+                                <!-- <RankInfoParseDisplayComponent :value="apartment.Cleanliness" :text="apartment.Cleanliness" :hovers="apartment.collapsed"/> -->
                             </div>
                         </div>
                     </div>
@@ -61,12 +62,14 @@
 import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 import RankIconDisplayComponent from '../utils/RankIconDisplayComponent.vue';
 import RankInfoDisplayComponent from '../utils/RankInfoDisplayComponent.vue';
+import RankInfoParseDisplayComponent from '../utils/RankInfoParseDisplayComponent.vue';
 
 export default {
     components: {
     CollapseTransition,
     RankIconDisplayComponent,
-    RankInfoDisplayComponent
+    RankInfoDisplayComponent,
+    RankInfoParseDisplayComponent
 },
     props: [
         'uuid'

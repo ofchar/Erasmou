@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Web\ApartmentResource;
 use App\Models\Apartment;
+use App\Models\Rate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -34,6 +36,46 @@ class ApartmentController extends Controller
                 'created_at',
             )
             ->paginate(15);
+
+        foreach ($data as &$apartment) {
+            $rates = Rate::where('rates.targetable_type', '=', Apartment::class)
+                ->join('rateables', 'rates.rateable_id', '=', 'rateables.id')
+                ->where('rates.targetable_id', '=', $apartment->id)
+                ->groupBy('rates.rateable_id', 'rateables.name', 'rateables.min_value', 'rateables.max_value')
+                ->select('rates.rateable_id', 'rateables.name as rateable_name', 'rateables.min_value as rateable_min_value', 'rateables.max_value as rateable_max_value',  DB::raw('avg(rates.value::real) as avg'))
+                ->get();
+
+            foreach ($rates as $rate) {
+                $maxAdjusted = $rate->rateable_max_value;
+                $valueAdjusted = $rate->avg;
+                $min = $rate->rateable_min_value;
+
+                if($min < 0) {
+                    $maxAdjusted = $maxAdjusted + abs($min);
+                    $valueAdjusted = $valueAdjusted + abs($min);
+                }
+                else if ($min > 0) {
+                    $maxAdjusted = $maxAdjusted - $min;
+                    $valueAdjusted = $valueAdjusted - $min;
+                }
+
+                $result = $valueAdjusted / $maxAdjusted;
+
+                if($result <= 0.35) {
+                    $parsedValue = -1;
+                }
+                else if ($result >= 0.65) {
+                    $parsedValue = 1;
+                }
+                else {
+                    $parsedValue = 0;
+                }
+
+                $apartment[$rate->rateable_name] = $parsedValue;
+                $apartment[$rate->rateable_name . '_original'] = $rate->avg;
+            }
+        }
+        unset($apartment);
 
         return ApartmentResource::collection($data);
     }
