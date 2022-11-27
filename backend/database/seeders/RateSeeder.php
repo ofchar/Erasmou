@@ -16,7 +16,7 @@ class RateSeeder extends Seeder
      */
     public function run()
     {
-        Rate::factory(500)
+        Rate::factory(2000)
             ->recycle(User::all())
             ->create();
     }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Apartment;
 use App\Models\Rateable;
 use Illuminate\Database\Seeder;
 
@@ -16,15 +17,15 @@ class RateableSeeder extends Seeder
     {
         Rateable::create([
             'name' => 'Price',
-            'targetable_type' => 'App\\Models\\Apartment',
+            'targetable_type' => Apartment::class,
             'data_type' => Rateable::TYPE_FLOAT,
             'description' => 'Price for apartment per month.',
-            'min_value',
-            'max_value',
+            'min_value' => null,
+            'max_value' => null,
         ]);
         Rateable::create([
             'name' => 'Cleanliness',
-            'targetable_type' => 'App\\Models\\Apartment',
+            'targetable_type' => Apartment::class,
             'data_type' => Rateable::TYPE_INT,
             'description' => 'How clean the apartment is in 1-10 scale.',
             'min_value' => 1,
@@ -32,7 +33,7 @@ class RateableSeeder extends Seeder
         ]);
         Rateable::create([
             'name' => 'Location',
-            'targetable_type' => 'App\\Models\\Apartment',
+            'targetable_type' => Apartment::class,
             'data_type' => Rateable::TYPE_INT,
             'description' => 'How good the location is in 1-10 scale.',
             'min_value' => 1,

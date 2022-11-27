@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Apartment;
 use App\Models\Rateable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -25,6 +26,7 @@ class RateFactory extends Factory
 
         $rateable = Rateable::whereTargetableType($targetableClass)->inRandomOrder()->first();
 
+        $value = 'xd';
         switch($rateable->data_type) {
             case Rateable::TYPE_INT:
                 $value = $this->faker->numberBetween(
@@ -32,15 +34,12 @@ class RateFactory extends Factory
                     $rateable->max_value ?? PHP_INT_MAX
                 );
                 break;
-            case Rateable::TYPE_STRING:
+            case Rateable::TYPE_FLOAT:
                 $value = $this->faker->randomFloat(
                     2,
                     $rateable->min_value ?? 0,
                     $rateable->max_value ?? PHP_INT_MAX
                 );
-                break;
-            case Rateable::TYPE_STRING:
-                $value = $this->faker->sentence();
                 break;
         }
 

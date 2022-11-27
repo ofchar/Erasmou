@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,5 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->call(EsnSectionSeeder::class);
 
         $this->call(ForumSeeder::class);
+
+        $this->call(RateableSeeder::class);
+
+        $this->call(RateSeeder::class);
     }
 }

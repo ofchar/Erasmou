@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Helpers\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Rateable extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuid;
 
     const TYPE_INT = 1;
     const TYPE_FLOAT = 2;
-    const TYPE_STRING = 3;
 
     /**
      * The attributes that are mass assignable.

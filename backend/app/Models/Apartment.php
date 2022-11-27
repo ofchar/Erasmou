@@ -67,6 +67,14 @@ class Apartment extends Model
         return $this->belongsTo(City::class);
     }
 
+    /**
+     * Get the Rates of this apartment.
+     */
+    public function rates() : Relation
+    {
+        return $this->morphMany(Rate::class, 'targetable');
+    }
+
 
     public function scopeLandlordUuid(Builder $query, string $uuid) : Builder
     {
