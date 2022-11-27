@@ -5,8 +5,8 @@ import App from './pages/App.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faFaceSmile, faFaceMeh, faFaceFrown } from '@fortawesome/free-regular-svg-icons'
-library.add(faFaceSmile, faFaceMeh, faFaceFrown);
+import { faFaceSmile, faFaceMeh, faFaceFrown, faFaceMehBlank } from '@fortawesome/free-regular-svg-icons'
+library.add(faFaceSmile, faFaceMeh, faFaceFrown, faFaceMehBlank);
 
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';

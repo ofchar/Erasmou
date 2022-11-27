@@ -2,15 +2,18 @@
     <div class="container backgrounded p-2" :class="{hover: hovers}">
         <div class="row justify-content-center align-items-center">
             <div class="col-5 txt">
-                {{ text }}
+                {{ text ?? 'no data'}}
             </div>
-            <div class="col-5">
+            <div class="col-5" v-if="value != undefined">
                 <font-awesome-icon v-if="value >= 0.5"
                     size="2x" icon="fa-regular fa-face-smile" class="middle-icon positive"/>
                 <font-awesome-icon v-else-if="value < 0.5 && value > -0.5"
                     size="2x" icon="fa-regular fa-face-meh" class="middle-icon"/>
                 <font-awesome-icon v-else
                     size="2x" icon="fa-regular fa-face-frown" class="middle-icon negative"/>
+            </div>
+            <div class="col-5" v-else>
+                <font-awesome-icon size="2x" icon="fa-regular fa-face-meh-blank" class="middle-icon"/>
             </div>
         </div>
     </div>
@@ -45,7 +48,7 @@ export default {
     },
 
     mounted() {
-        //
+        console.log(this.value);
     },
 }
 </script>
