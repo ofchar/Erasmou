@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Apartment;
+use App\Models\City;
 use App\Models\Rateable;
+use App\Models\University;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +20,8 @@ class RateFactory extends Factory
     {
         $targetables = [
             Apartment::class,
-            // City::class,
+            City::class,
+            University::class,
         ];
 
         $targetableClass = $this->faker->randomElement($targetables);
@@ -28,18 +31,15 @@ class RateFactory extends Factory
 
         $value = 'xd';
         switch($rateable->data_type) {
-            case Rateable::TYPE_INT:
+            case Rateable::TYPE_NUMERIC:
+            case Rateable::TYPE_OPINION:
                 $value = $this->faker->numberBetween(
                     $rateable->min_value ?? 0,
                     $rateable->max_value ?? PHP_INT_MAX
                 );
                 break;
-            case Rateable::TYPE_FLOAT:
-                $value = $this->faker->randomFloat(
-                    2,
-                    $rateable->min_value ?? 0,
-                    $rateable->max_value ?? PHP_INT_MAX
-                );
+            case Rateable::TYPE_STRING:
+                $value = $this->faker->sentence();
                 break;
         }
 

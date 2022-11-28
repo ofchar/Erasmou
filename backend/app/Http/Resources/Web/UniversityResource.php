@@ -23,6 +23,14 @@ class UniversityResource extends JsonResource
                 'name' => $this->city->name,
             ],
             'faculties' => FacultyResource::collection($this->faculties),
+            'rates' => [
+                'friendliness' => $this->Friendliness,
+                'friendliness_original' => $this->Friendliness_original,
+                'education' => $this->Education,
+                'education_original' => $this->Education_original,
+                'overall' => $this->Overall,
+                'overall_original' => $this->Overall_original,
+            ]
         ];
     }
 }

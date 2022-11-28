@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Helpers\Rate\RatesInfoAdderHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Web\UniversityResource;
+use App\Models\Rate;
 use App\Models\University;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -31,6 +33,8 @@ class UniversityController extends Controller
             ->with('city')
             ->with('faculties')
             ->paginate(15);
+
+        $data = RatesInfoAdderHelper::addRates($data, University::class);
 
         return UniversityResource::collection($data);
     }
