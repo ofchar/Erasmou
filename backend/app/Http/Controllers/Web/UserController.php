@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -81,5 +82,30 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if(Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // dd(Auth::user());
+
+
+            return response()->json([
+                'ok' => Auth::user(),
+            ]);
+            // return redirect()->intended('/');
+        }
+
+        return response()->json([
+            'error' => 'wrong credentials',
+        ]);
     }
 }

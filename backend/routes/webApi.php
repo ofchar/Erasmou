@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\FacultyController;
 use App\Http\Controllers\Web\ForumController;
 use App\Http\Controllers\Web\ProvinceController;
 use App\Http\Controllers\Web\UniversityController;
+use App\Http\Controllers\Web\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length');
-header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+// header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length');
+// header('Access-Control-Allow-Origin: *');
 
 
 
