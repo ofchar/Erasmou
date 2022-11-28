@@ -8,17 +8,19 @@ export default class api {
             baseURL: url
         });
 
+        this.instance.defaults.headers.get['Accept'] = 'application/json';
         this.instance.defaults.headers.post['Accept'] = 'application/json';
+        this.instance.defaults.withCredentials = true;
     }
 
     index(model, params) {
-        return this.instance.get(model, {
+        return this.instance.get('/webapi/' + model, {
             params: params
         })
     }
 
     show(model, id, params = null) {
-        return this.instance.get(model + '/' + id, {
+        return this.instance.get('/webapi/' + model + '/' + id, {
             params: params
         })
     }
@@ -33,5 +35,15 @@ export default class api {
 
     delete(model, id) {
         return axios.delete(this.url + '/' + model + '/' + id, {})
+    }
+
+    get(route, params) {
+        return this.instance.get(route, {
+            params: params
+        });
+    }
+
+    post (route, data) {
+        return this.instance.post(route, data);
     }
 }

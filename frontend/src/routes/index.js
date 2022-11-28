@@ -1,6 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
 import DashboardPage from '../pages/dashboard/DashboardPage.vue';
 
+import LoginPage from '../pages/authentication/LoginPage.vue';
+
 import CountryIndexPage from '../pages/country/CountryIndexPage.vue';
 import CountryShowPage from '../pages/country/CountryShowPage.vue';
 
@@ -16,14 +18,16 @@ const routes = [
         name: "dashboard",
         component: DashboardPage,
     },
-    // {
-    //     path: "/login",
-    //     name: "login",
-    //     component: LoginPage,
-    //     beforeEnter: (to, from, next) => {
-    //         next(handleLogged('/'))
-    //     },
-    // },
+
+    {
+        path: "/login",
+        name: "login",
+        component: LoginPage,
+        // beforeEnter: (to, from, next) => {
+        //     next(handleLogged('/'))
+        // },
+    },
+
     // {
     //     path: "/register",
     //     name: "register",

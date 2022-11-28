@@ -14,6 +14,11 @@ export default {
     components: {
         NavbarComponent,
     },
+
+    mounted () {
+        this.$api
+            .get('/sanctum/csrf-cookie')
+    }
 }
 </script>
 
