@@ -16,7 +16,9 @@
                             <div class="row">Name</div>
                         </div>
                         <div class="col-2">Price / month</div>
-                        <div class="col-2">Cleanliness</div>
+                        <div class="col-2">Cleanliness /10</div>
+                        <div class="col-2">Location /10</div>
+                        <div class="col-2">Overall /10</div>
                     </div>
                 </div>
                 <div v-for="apartment in apartments">
@@ -24,11 +26,16 @@
                         <div class="row m-2 align-items-center text-center">
                             <div class="col-4 text-start">{{ apartment.name }}</div>
                             <div class="col-2">
-                                <RankInfoDisplayComponent :value="-1" text="2000" :hovers="apartment.collapsed"/>
+                                <RankInfoDisplayComponent :textOnly="true" :text="apartment.Price" :hovers="apartment.collapsed"/>
                             </div>
                             <div class="col-2">
                                 <RankInfoDisplayComponent :value="apartment.Cleanliness" :text="apartment.Cleanliness_original" :hovers="apartment.collapsed"/>
-                                <!-- <RankInfoParseDisplayComponent :value="apartment.Cleanliness" :text="apartment.Cleanliness" :hovers="apartment.collapsed"/> -->
+                            </div>
+                            <div class="col-2">
+                                <RankInfoDisplayComponent :value="apartment.Location" :text="apartment.Location_original" :hovers="apartment.collapsed"/>
+                            </div>
+                            <div class="col-2">
+                                <RankInfoDisplayComponent :value="apartment.Overall" :text="apartment.Overall_original" :hovers="apartment.collapsed"/>
                             </div>
                         </div>
                     </div>

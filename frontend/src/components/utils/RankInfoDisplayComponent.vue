@@ -1,10 +1,13 @@
 <template>
     <div class="container backgrounded p-2" :class="{hover: hovers}">
         <div class="row justify-content-center align-items-center">
-            <div class="col-5 txt">
+            <div class="col-5 txt" v-if="!textOnly">
                 {{ text ?? 'no data'}}
             </div>
-            <div class="col-5" v-if="value != undefined">
+            <div class="col-5" v-else>
+                {{ text ?? 'no data'}}
+            </div>
+            <div class="col-5" v-if="value != undefined && !textOnly">
                 <font-awesome-icon v-if="value >= 0.5"
                     size="2x" icon="fa-regular fa-face-smile" class="middle-icon positive"/>
                 <font-awesome-icon v-else-if="value < 0.5 && value > -0.5"
@@ -12,7 +15,7 @@
                 <font-awesome-icon v-else
                     size="2x" icon="fa-regular fa-face-frown" class="middle-icon negative"/>
             </div>
-            <div class="col-5" v-else>
+            <div class="col-5" v-if="value == undefined && !textOnly">
                 <font-awesome-icon size="2x" icon="fa-regular fa-face-meh-blank" class="middle-icon"/>
             </div>
         </div>
@@ -28,6 +31,7 @@ export default {
         'value',
         'text',
         'hovers',
+        'textOnly',
     ],
 
     data() {

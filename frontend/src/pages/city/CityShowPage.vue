@@ -20,36 +20,27 @@
             <div class="card-body">
                 <div class="bordered p-1">
                     <div class="row m-2 align-items-center text-center">
-                        <div class="col-md-3 text-start">
-                            <div class="row">Name</div>
-                            <div class="row"><small>Province</small></div>
-                        </div>
-                        <div class="col-md-2">Population</div>
-                        <div class="col-md-1">Opinion</div>
-                        <div class="col-md-1">Prices</div>
-                        <div class="col-md-1">Fun</div>
-                        <div class="col-md-2">Universities</div>
-                        <div class="col-md-2">Esn Sections</div>
+                        <div class="col-5 text-start">Name</div>
+                        <div class="col-2">Overall /10</div>
+                        <div class="col-2">Education /10</div>
+                        <div class="col-2">Friendliness /10</div>
                     </div>
                 </div>
 
                 <div v-for="university in universities">
-                    <div class="hvr p-1" @mouseenter="university.collapsed = true" @mouseleave="university.collapsed = false">
+                    <div class="hvr p-1" @mouseenter="university.collapsed = true"
+                        @mouseleave="university.collapsed = false" @mousedown="gotoUniversity(university)">
                         <div class="row m-2 align-items-center text-center">
-                            <div class="col-md-3 text-start">
-                                <div class="row">
-                                    {{ university.name }}
-                                </div>
-                                <div class="row">
-                                    <small>{{ university.province}}</small>
-                                </div>
+                            <div class="col-5 text-start">{{ university.name }}</div>
+                            <div class="col-2">
+                                <RankInfoDisplayComponent :value="university.rates.overall" :text="university.rates.overall_original" :hovers="university.collapsed"/>
                             </div>
-                            <div class="col-md-2">{{ university.population }}</div>
-                            <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-2">{{ university.universities }}</div>
-                            <div class="col-md-2">1</div>
+                            <div class="col-2">
+                                <RankInfoDisplayComponent :value="university.rates.education" :text="university.rates.education_original" :hovers="university.collapsed"/>
+                            </div>
+                            <div class="col-2">
+                                <RankInfoDisplayComponent :value="university.rates.friendliness" :text="university.rates.friendliness_original" :hovers="university.collapsed"/>
+                            </div>
                         </div>
                     </div>
                     <CollapseTransition>
@@ -62,7 +53,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                Showing {{ universities.from }} to {{ universities.to }} of {{ universities.total }} total
+                Showing {{ universitiesMeta.from }} to {{ universitiesMeta.to }} of {{ universitiesMeta.total }} total
             </div>
         </div>
 
@@ -76,6 +67,7 @@
 import { numberify } from '@/services/utils.js'
 
 import RankIconDisplayComponentVue from '@/components/utils/RankIconDisplayComponent.vue';
+import RankInfoDisplayComponent from '@/components/utils/RankInfoDisplayComponent.vue';
 import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 import DiscussionComponent from '@/components/forum/DiscussionComponent.vue';
 import ApartmentDisplayComponent from '@/components/apartment/ApartmentDisplayComponent.vue';
@@ -83,6 +75,7 @@ import ApartmentDisplayComponent from '@/components/apartment/ApartmentDisplayCo
 export default {
     components: {
         RankIconDisplayComponentVue,
+        RankInfoDisplayComponent,
         CollapseTransition,
         DiscussionComponent,
         ApartmentDisplayComponent,
@@ -134,6 +127,16 @@ export default {
 
         format: function (val) {
             return numberify(val);
+        },
+
+        gotoUniversity: function (university) {
+            this.$router.push({ name: 'universities-show', params: { uuid: university.uuid } });
+        },
+        gotoForum: function (university) {
+            this.$router.push({ name: 'universities-show', params: { uuid: university.uuid } });
+        },
+        gotoApartment: function (university) {
+            this.$router.push({ name: 'universities-show', params: { uuid: university.uuid } });
         },
     },
 
