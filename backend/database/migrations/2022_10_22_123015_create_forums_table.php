@@ -19,6 +19,7 @@ return new class extends Migration
             $table->morphs('forumable');
             $table->string('name');
             $table->string('description', 2048);
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

@@ -21,6 +21,7 @@ class Forum extends Model
         'forumable_id',
         'name',
         'description',
+        'user_id',
     ];
 
     /**
@@ -31,6 +32,7 @@ class Forum extends Model
     protected $hidden = [
         'id',
         'forumable_id',
+        'user_id',
     ];
 
 
@@ -51,6 +53,14 @@ class Forum extends Model
     }
 
     /**
+     * Creator (user) of this Forum.
+     */
+    public function user() : Relation
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Get latest Post of this Forum.
      */
     public function post() : ?Relation
@@ -62,6 +72,11 @@ class Forum extends Model
     public function scopeForumableUuid(Builder $query, string $uuid) : Builder
     {
         return $this->baseMorphUuidScope($query, 'forumable', $uuid);
+    }
+
+    public function scopeUserUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseUuidScope($query, 'user', $uuid);
     }
 
     public function scopeSearch(Builder $query, string $search) : Builder

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\City;
 use App\Models\Forum;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ForumSeeder extends Seeder
@@ -17,6 +18,7 @@ class ForumSeeder extends Seeder
     {
         Forum::factory(300)
             ->recycle(City::all())
+            ->recycle(User::all())
             ->hasPosts(rand(0, 15))
             ->create();
     }

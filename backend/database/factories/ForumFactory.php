@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\City;
 use App\Models\University;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ForumFactory extends Factory
@@ -29,6 +30,7 @@ class ForumFactory extends Factory
                 return $this->faker->word() . ' ' . $forumable::find($attributes['forumable_id'])->name . ' Forum';
             },
             'description' => $this->faker->paragraph(),
+            'user_id' => User::factory(),
         ];
     }
 }

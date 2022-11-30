@@ -24,6 +24,10 @@ class ForumResource extends JsonResource
                 'title' => $this->post->title,
             ] : null,
             'posts_count' => $this->posts_count,
+            'user' => [
+                'uuid' => $this->user->uuid,
+                'name' => $this->user->username,
+            ]
         ];
     }
 }
