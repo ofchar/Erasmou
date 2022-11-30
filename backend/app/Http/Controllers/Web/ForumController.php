@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Web\ForumResource;
 use App\Models\Forum;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -37,16 +38,6 @@ class ForumController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,29 +45,36 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'forumable_type' => 'required|string',
+            'forumable_uuid' => 'required|uuid',
+            'name' => 'required|string',
+            'description' => 'string',
+        ]);
+
+        $forumableType = $request->forumable_type;
+        $forumable = $forumableType::whereUuid($request->forumable_uuid)->firstOrFail();
+
+        $forum = Forum::create([
+            'forumable_type' => $forumableType,
+            'forumable_id' => $forumable->id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return new ForumResource($forum);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Forum  $forum
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Forum $forum)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new ForumResource($forum);
     }
 
     /**

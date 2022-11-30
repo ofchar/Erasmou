@@ -31,6 +31,6 @@ class UserSeeder extends Seeder
             'country_id' => 1,
             'city_id' => 1,
             'password' => Hash::make('password'),
-        ])
+        ]);
     }
 }

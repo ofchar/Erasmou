@@ -4,7 +4,9 @@
             <div class="container-md">
                 <a class="navbar-brand" href="/">Erasmou</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -22,9 +24,20 @@
                         </li>
                     </ul>
 
-                    <div class="d-flex text-white">
+                    <div class="text-white">
                         <div v-if="isLogged">
-                            {{ user.username }}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ user.username }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <!-- <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li> -->
+                                    <!-- <li><hr class="dropdown-divider"></li> -->
+                                    <li><a class="dropdown-item" @click="logOut()">Log out</a></li>
+                                </ul>
+                            </li>
                         </div>
                         <div v-else>
                             <router-link class='nav-link' to="/login">login</router-link>
@@ -61,7 +74,10 @@ export default {
     },
 
     methods: {
-        //
+        logOut: function () {
+            localStorage.removeItem('user');
+            window.location.replace('/');
+        }
     },
 
     mounted() {

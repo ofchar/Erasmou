@@ -4,8 +4,15 @@
             <div class="card-header">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-md-4 mt-auto"><h5>Discussions</h5></div>
-                    <div class="col-md-4 text-end mt-auto">
-                        <input class="form-control" v-model="search" placeholder="search">
+                    <div class="col-md-5 text-end mt-auto">
+                        <div class="row">
+                            <div class="col-8">
+                                <input class="form-control" v-model="search" placeholder="search">
+                            </div>
+                            <div class="col-4 px-3">
+                                <button class="btn btn-dark">Start discussion</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

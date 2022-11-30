@@ -31,17 +31,32 @@ use Illuminate\Support\Facades\Route;
 // header('Access-Control-Allow-Origin: *');
 
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('countries', CountryController::class)->except('index', 'show');
 
-Route::apiResource('countries', CountryController::class);
+    Route::apiResource('cities', CityController::class)->except('index', 'show');
 
-Route::apiResource('cities', CityController::class);
+    Route::apiResource('provinces', ProvinceController::class)->except('index', 'show');
 
-Route::apiResource('provinces', ProvinceController::class);
+    Route::apiResource('universities', UniversityController::class)->except('index', 'show');
 
-Route::apiResource('universities', UniversityController::class);
+    Route::apiResource('faculties', FacultyController::class)->except('index', 'show');
 
-Route::apiResource('faculties', FacultyController::class);
+    Route::apiResource('forums', ForumController::class)->except('index', 'show');
 
-Route::apiResource('forums', ForumController::class);
+    Route::apiResource('apartments', ApartmentController::class)->except('index', 'show');
+});
 
-Route::apiResource('apartments', ApartmentController::class);
+Route::apiResource('countries', CountryController::class)->only('index', 'show');
+
+Route::apiResource('cities', CityController::class)->only('index', 'show');
+
+Route::apiResource('provinces', ProvinceController::class)->only('index', 'show');
+
+Route::apiResource('universities', UniversityController::class)->only('index', 'show');
+
+Route::apiResource('faculties', FacultyController::class)->only('index', 'show');
+
+Route::apiResource('forums', ForumController::class)->only('index', 'show');
+
+Route::apiResource('apartments', ApartmentController::class)->only('index', 'show');
