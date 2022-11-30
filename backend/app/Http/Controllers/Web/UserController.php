@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -95,13 +96,11 @@ class UserController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // dd(Auth::user());
-
-
             return response()->json([
-                'ok' => Auth::user(),
+                'status' => 'ok',
+                'error' => null,
+                'user' => new UserResource(Auth::user()),
             ]);
-            // return redirect()->intended('/');
         }
 
         return response()->json([

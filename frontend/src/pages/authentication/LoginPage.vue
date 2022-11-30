@@ -87,7 +87,9 @@ export default {
                     'password': this.password,
                 })
                 .then((response) => {
-                    console.log(response);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+
+                    window.location.replace('/');
                 })
         },
     },

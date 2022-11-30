@@ -10,22 +10,26 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <ul class="navbar-nav ps-3 me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <router-link class='nav-link' to="/countries">Countries</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class='nav-link' to="/cities">Cities</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class='nav-link' to="/universities">Universities</router-link>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button> -->
-                    <router-link class='nav-link' to="/login">login</router-link>
-                </form>
+                    <ul class="navbar-nav ps-3 me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <router-link class='nav-link' to="/countries">Countries</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class='nav-link' to="/cities">Cities</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class='nav-link' to="/universities">Universities</router-link>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex text-white">
+                        <div v-if="isLogged">
+                            {{ user.username }}
+                        </div>
+                        <div v-else>
+                            <router-link class='nav-link' to="/login">login</router-link>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -35,7 +39,43 @@
 
 <script>
 export default {
+    components: {
+        //
+    },
+    props: [
+        //
+    ],
 
+    data() {
+        return {
+            user: null,
+            isLogged: false,
+        }
+    },
+
+    watch: {
+        //
+    },
+    computed: {
+        //
+    },
+
+    methods: {
+        //
+    },
+
+    mounted() {
+        let user = localStorage.getItem('user');
+
+        if (user) {
+            this.user = JSON.parse(user);
+            this.isLogged = true;
+        }
+        else {
+            this.user = null;
+            this.isLogged = false;
+        }
+    },
 }
 </script>
 

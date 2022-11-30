@@ -11,6 +11,20 @@ export default class api {
         this.instance.defaults.headers.get['Accept'] = 'application/json';
         this.instance.defaults.headers.post['Accept'] = 'application/json';
         this.instance.defaults.withCredentials = true;
+
+        this.instance.interceptors.response.use(function (response) {
+            return response;
+        }, function (error) {
+            if (error.response) {
+                if (error.response.status == 401) {
+                    localStorage.removeItem('user');
+
+                    window.location.replace('/login');
+                }
+            }
+
+            return Promise.reject(error);
+        });
     }
 
     index(model, params) {
