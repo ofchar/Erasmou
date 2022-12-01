@@ -12,6 +12,8 @@ import CityShowPage from '../pages/city/CityShowPage.vue';
 import UniversityIndexPage from '../pages/university/UniversityIndexPage.vue';
 import UniversityShowPage from '../pages/university/UniversityShowPage.vue';
 
+import ForumShowPage from '../pages/forum/ForumShowPage.vue';
+
 const routes = [
     {
         path: "/",
@@ -68,6 +70,12 @@ const routes = [
         path: "/universities/:uuid",
         name: "universities-show",
         component: UniversityShowPage,
+    },
+
+    {
+        path: "/forums/:uuid",
+        name: "forums-show",
+        component: ForumShowPage,
     },
 ];
 
