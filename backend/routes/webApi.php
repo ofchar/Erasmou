@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\CityController;
 use App\Http\Controllers\Web\CountryController;
 use App\Http\Controllers\Web\FacultyController;
 use App\Http\Controllers\Web\ForumController;
+use App\Http\Controllers\Web\PostController;
 use App\Http\Controllers\Web\ProvinceController;
 use App\Http\Controllers\Web\UniversityController;
 use App\Http\Controllers\Web\UserController;
@@ -44,6 +45,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::apiResource('forums', ForumController::class)->except('index', 'show');
 
+    Route::apiResource('posts', PostController::class)->except('index', 'show');
+
     Route::apiResource('apartments', ApartmentController::class)->except('index', 'show');
 });
 
@@ -58,5 +61,7 @@ Route::apiResource('universities', UniversityController::class)->only('index', '
 Route::apiResource('faculties', FacultyController::class)->only('index', 'show');
 
 Route::apiResource('forums', ForumController::class)->only('index', 'show');
+
+Route::apiResource('posts', PostController::class)->only('index', 'show');
 
 Route::apiResource('apartments', ApartmentController::class)->only('index', 'show');

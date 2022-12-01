@@ -49,7 +49,7 @@ class ForumController extends Controller
             'forumable_type' => 'required|string',
             'forumable_uuid' => 'required|uuid',
             'name' => 'required|string',
-            'description' => 'string',
+            'description' => 'required|string',
         ]);
 
         $forumableType = $request->forumable_type;
