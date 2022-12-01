@@ -11,6 +11,7 @@ library.add(faFaceSmile, faFaceMeh, faFaceFrown, faFaceMehBlank);
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 
+
 const Vue = createApp(App)
     .component('font-awesome-icon', FontAwesomeIcon)
     .component('v-select', vSelect);
@@ -23,5 +24,8 @@ Vue.use(router);
 
 import api from './services/apiWrapper';
 Vue.config.globalProperties.$api = new api('http://localhost:6969');
+
+import Swal from 'sweetalert2'
+Vue.config.globalProperties.$swal = Swal;
 
 Vue.mount("#app");
