@@ -33,22 +33,22 @@ export default class api {
         })
     }
 
-    show(model, id, params = null) {
-        return this.instance.get('/webapi/' + model + '/' + id, {
+    show(model, uuid, params = null) {
+        return this.instance.get('/webapi/' + model + '/' + uuid, {
             params: params
         })
     }
 
-    update(model, id, data) {
-        return axios.put(this.url + '/' + model + '/' + id, data, {})
+    update(model, uuid, data) {
+        return axios.put('/webapi/' + model + '/' + uuid, data, {})
     }
 
     create(model, data) {
-        return axios.post(this.url + '/' + model, data, {})
+        return axios.post('/webapi/' + model, data, {})
     }
 
-    delete(model, id) {
-        return axios.delete(this.url + '/' + model + '/' + id, {})
+    delete(model, uuid) {
+        return axios.delete('/webapi/' + model + '/' + uuid, {})
     }
 
     get(route, params) {
