@@ -40,15 +40,15 @@ export default class api {
     }
 
     update(model, uuid, data) {
-        return axios.put('/webapi/' + model + '/' + uuid, data, {})
+        return this.instance.put('/webapi/' + model + '/' + uuid, data, {})
     }
 
     create(model, data) {
-        return axios.post('/webapi/' + model, data, {})
+        return this.instance.post('/webapi/' + model, data, {})
     }
 
     delete(model, uuid) {
-        return axios.delete('/webapi/' + model + '/' + uuid, {})
+        return this.instance.delete('/webapi/' + model + '/' + uuid, {})
     }
 
     get(route, params) {
