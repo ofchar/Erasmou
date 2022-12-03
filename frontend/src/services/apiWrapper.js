@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default class api {
     instance
@@ -19,7 +20,15 @@ export default class api {
                 if (error.response.status == 401) {
                     localStorage.removeItem('user');
 
-                    window.location.replace('/login');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Oops...',
+                        text: 'You need to be logged in to do this!',
+                    }).then((result) => {
+                        window.location.replace('/login');
+                    })
+
+                    return;
                 }
             }
 

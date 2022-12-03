@@ -75,8 +75,12 @@ export default {
 
     methods: {
         logOut: function () {
-            localStorage.removeItem('user');
-            window.location.replace('/');
+            this.$api
+                .post('auth/logout', {})
+                .then((response) => {
+                    localStorage.removeItem('user');
+                    window.location.replace('/');
+                });
         }
     },
 

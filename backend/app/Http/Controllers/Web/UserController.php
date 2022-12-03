@@ -107,4 +107,16 @@ class UserController extends Controller
             'error' => 'wrong credentials',
         ]);
     }
+
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json([
+            'status' => 'ok',
+        ], 200);
+    }
 }
