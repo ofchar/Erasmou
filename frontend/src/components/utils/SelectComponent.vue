@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-select class="bg-light text-dark" :options="options" label="name" v-model="query"/>
+        <v-select class="bg-light text-dark" :options="options" label="name" v-model="query" @search="searchData"/>
     </div>
 </template>
 
@@ -40,6 +40,19 @@ export default {
                 .then((response) => {
                     this.options = response.data.data;
                 })
+        },
+
+        searchData: function (search, loading) {
+            loading(true);
+
+            this.$api
+                .index(this.route, {
+                    'filter[search]': search,
+                })
+                .then((response) => {
+                    this.options = response.data.data;
+                    loading(false);
+                });
         }
     },
 
