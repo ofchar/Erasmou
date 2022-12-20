@@ -5,8 +5,11 @@ use App\Http\Controllers\Web\CityController;
 use App\Http\Controllers\Web\CountryController;
 use App\Http\Controllers\Web\FacultyController;
 use App\Http\Controllers\Web\ForumController;
+use App\Http\Controllers\Web\LandlordController;
 use App\Http\Controllers\Web\PostController;
 use App\Http\Controllers\Web\ProvinceController;
+use App\Http\Controllers\Web\RateableController;
+use App\Http\Controllers\Web\RateController;
 use App\Http\Controllers\Web\UniversityController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Http\Request;
@@ -48,6 +51,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('posts', PostController::class)->except('index', 'show');
 
     Route::apiResource('apartments', ApartmentController::class)->except('index', 'show');
+
+    Route::apiResource('landlords', LandlordController::class)->except('index', 'show');
+
+    Route::apiResource('rates', RateController::class)->except('index', 'show');
 });
 
 Route::apiResource('countries', CountryController::class)->only('index', 'show');
@@ -65,3 +72,7 @@ Route::apiResource('forums', ForumController::class)->only('index', 'show');
 Route::apiResource('posts', PostController::class)->only('index', 'show');
 
 Route::apiResource('apartments', ApartmentController::class)->only('index', 'show');
+
+Route::apiResource('landlords', LandlordController::class)->only('index', 'show');
+
+Route::apiResource('rateables', RateableController::class)->only('index', 'show');

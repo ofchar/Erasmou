@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Web\RateResource;
+use App\Models\Rate;
+use App\Models\Rateable;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RateController extends Controller
 {
@@ -18,16 +23,6 @@ class RateController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +30,29 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'targetable_type' => 'required|string',
+            'targetable_uuid' => 'required|uuid',
+            'rateable_uuid' => 'required|uuid',
+            'value' => 'required|string',
+            'comment' => 'nullable|string',
+        ]);
+
+        $targetableType = $request->targetable_type;
+        $targetable = $targetableType::whereUuid($request->targetable_uuid)->firstOrFail();
+
+        $rateable = Rateable::whereUuid($request->rateable_uuid)->firstOrFail();
+
+        $rate = Rate::create([
+            'targetable_type' => $targetableType,
+            'targetable_id' => $targetable->id,
+            'rateable_id' => $rateable->id,
+            'value' => $request->value,
+            'comment' => $request->comment,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return new RateResource($rate);
     }
 
     /**
@@ -45,17 +62,6 @@ class RateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

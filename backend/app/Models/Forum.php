@@ -81,9 +81,9 @@ class Forum extends Model
 
     public function scopeSearch(Builder $query, string $search) : Builder
     {
-        return $query->where('name', 'like', '%' . $search . '%')
-            ->orWhereHas('city', fn ($q) =>
-                $q->where('name', 'like', '%' . $search . '%')
-            );
+        return $query->where('name', 'like', '%' . $search . '%');
+            // ->orWhereHas('city', fn ($q) =>
+            //     $q->where('name', 'like', '%' . $search . '%')
+            // );
     }
 }
