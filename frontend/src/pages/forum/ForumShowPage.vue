@@ -20,7 +20,7 @@
                                 <input class="form-control" v-model="postsSearch" placeholder="search">
                             </div>
                             <div class="col-4 px-3">
-                                <button class="btn btn-dark px-5" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</button>
+                                <button class="btn btn-dark px-5" data-bs-toggle="modal" data-bs-target="#replyModal" :disabled="!loggedIn">Reply</button>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,9 @@ export default {
         // }
     },
     computed: {
-        //
+        loggedIn: function () {
+            return localStorage.getItem('user') != undefined ? true : false
+        }
     },
 
     methods: {

@@ -34,7 +34,7 @@
                 </div>
 
                 <div v-for="city in cities">
-                    <div class="hvr p-1">
+                    <div class="hvr p-1" @mousedown="$router.push({ name: 'cities-show', params: { uuid: city.uuid } });">
                         <div class="row m-2 align-items-center text-center">
                             <div class="col-md-3 text-start">
                                 <div class="row">

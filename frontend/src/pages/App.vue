@@ -4,16 +4,20 @@
     <div class="container app-content">
         <router-view />
     </div>
+
+    <FooterComponent />
 </template>
 
 <script>
-import NavbarComponent from '../components/NavbarComponent.vue'
+import FooterComponent from '@/components/FooterComponent.vue';
+import NavbarComponent from '@/components/NavbarComponent.vue'
 
 export default {
     name: 'App',
     components: {
-        NavbarComponent,
-    },
+    NavbarComponent,
+    FooterComponent
+},
 
     mounted () {
         this.$api

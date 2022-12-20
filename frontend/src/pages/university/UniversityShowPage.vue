@@ -1,7 +1,22 @@
 <template>
     <div>
         <div class="card text-start mt-3 bg-secondary text-white" v-if="university">
-            <h5 class="card-header">Info</h5>
+            <div class="card-header">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-md-4 mt-auto"><h5>Info</h5></div>
+                    <div class="col-md-5 text-end mt-auto">
+                        <div class="row">
+                            <div class="col-8">
+                            </div>
+                            <div class="col-4">
+                                <RaterComponent
+                                    targetable_type="App\Models\University"
+                                    :rateable_uuid="uuid"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
                 <h5 class="card-title">{{ university.name }}</h5>
                 <p class="card-text">{{ university.description }}</p>
@@ -61,12 +76,14 @@ import { numberify } from '@/services/utils.js'
 import RankIconDisplayComponentVue from '@/components/utils/RankIconDisplayComponent.vue';
 import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 import DiscussionComponent from '@/components/forum/DiscussionComponent.vue';
+import RaterComponent from '@/components/rate/RaterComponent.vue';
 
 export default {
     components: {
         RankIconDisplayComponentVue,
         CollapseTransition,
         DiscussionComponent,
+        RaterComponent,
     },
     props: [
         //

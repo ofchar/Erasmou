@@ -19,6 +19,7 @@ export default class api {
             if (error.response) {
                 if (error.response.status == 401) {
                     localStorage.removeItem('user');
+                    localStorage.removeItem('role');
 
                     Swal.fire({
                         icon: 'warning',

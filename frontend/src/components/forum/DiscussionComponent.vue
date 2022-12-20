@@ -12,7 +12,7 @@
                                 <input class="form-control" v-model="search" placeholder="search">
                             </div>
                             <div class="col-4 px-3">
-                                <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addForumModal">Start discussion</button>
+                                <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addForumModal" :disabled="!loggedIn">Start discussion</button>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,9 @@ export default {
     },
 
     watch: {
-        //
+        search: function () {
+            this.loadForums();
+        }
     },
     computed: {
         forumableType: function () {
@@ -119,6 +121,10 @@ export default {
                     return 'App\\Models\\University';
             }
         },
+
+        loggedIn: function () {
+            return localStorage.getItem('user') != undefined ? true : false;
+        }
     },
 
     methods: {

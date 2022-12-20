@@ -4,8 +4,15 @@
             <div class="card-header">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-md-4 mt-auto"><h5>Apartments</h5></div>
-                    <div class="col-md-4 text-end mt-auto">
-                        <input class="form-control" v-model="search" placeholder="search">
+                    <div class="col-md-5 text-end mt-auto">
+                        <div class="row">
+                            <div class="col-8">
+                                <input class="form-control" v-model="search" placeholder="search">
+                            </div>
+                            <div class="col-4 px-3">
+                                <button class="btn btn-dark px-3" data-bs-toggle="modal" data-bs-target="#addApartmentModal">Add apartment</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,6 +69,32 @@
                 Showing {{ apartmentsMeta.from }} to {{ apartmentsMeta.to }} of {{ apartmentsMeta.total }} total
             </div>
         </div>
+
+
+        <div class="modal fade" id="addApartmentModal" tabindex="-1" aria-labelledby="apartmentModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="apartmentModal">Start new discussion!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Landlord</label>
+                        <SelectComponent route="landlords" v-model="newApartment.landlord" />
+
+                        <label>Landlord</label>
+                        <input class="form-control" v-model="newApartment.name" placeholder="Title"/>
+
+                        <label>Body</label>
+                        <textarea class="form-control" v-model="newApartment.description" rows="5" placeholder="Body"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="saveForum()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -70,14 +103,16 @@ import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTrans
 import RankIconDisplayComponent from '../utils/RankIconDisplayComponent.vue';
 import RankInfoDisplayComponent from '../utils/RankInfoDisplayComponent.vue';
 import RankInfoParseDisplayComponent from '../utils/RankInfoParseDisplayComponent.vue';
+import SelectComponent from '../utils/SelectComponent.vue';
 
 export default {
     components: {
-    CollapseTransition,
-    RankIconDisplayComponent,
-    RankInfoDisplayComponent,
-    RankInfoParseDisplayComponent
-},
+        CollapseTransition,
+        RankIconDisplayComponent,
+        RankInfoDisplayComponent,
+        RankInfoParseDisplayComponent,
+        SelectComponent,
+    },
     props: [
         'uuid'
     ],
@@ -86,11 +121,32 @@ export default {
         return {
             apartments: null,
             apartmentsMeta: null,
+
+            search: null,
+
+            newApartment: {
+                landlord: null,
+                name: null,
+                description: null,
+                url: null,
+                road: null,
+                building_number: null,
+                apartment_number: null,
+            },
+
+            newLandlord: {
+                name: null,
+                phone: null,
+                email: null,
+                website: null,
+            },
         }
     },
 
     watch: {
-        //
+        search: function () {
+            this.loadApartments();
+        }
     },
     computed: {
         //
@@ -100,7 +156,8 @@ export default {
         loadApartments: function () {
             this.$api
                 .index('apartments', {
-                    'filter[city_uuid]': this.uuid
+                    'filter[city_uuid]': this.uuid,
+                    'filter[search]': this.search,
                 })
                 .then((response) => {
                     this.apartments = response.data.data;
@@ -128,5 +185,9 @@ export default {
 
 .bordered {
     border-bottom: 2px solid rgba(255,255,255,0.7);
+}
+
+label {
+    margin-top: 1rem;
 }
 </style>

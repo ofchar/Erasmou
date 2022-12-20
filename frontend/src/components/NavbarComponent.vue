@@ -79,6 +79,8 @@ export default {
                 .post('auth/logout', {})
                 .then((response) => {
                     localStorage.removeItem('user');
+                    localStorage.removeItem('role');
+
                     window.location.replace('/');
                 });
         }
