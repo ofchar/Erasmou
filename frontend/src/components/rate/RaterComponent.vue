@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addOpinionModal" :disabled="(!loggedIn || loading)">Start discussion</button>
+        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addOpinionModal" :disabled="(!loggedIn || loading)">Rate this object</button>
 
 
         <div class="modal fade text-dark" id="addOpinionModal" tabindex="-1" aria-labelledby="opinionModal" aria-hidden="true">
@@ -23,7 +23,7 @@
                                             :name="rateable.name + 'options'"
                                             :id="rateable.name + 'option' + index"
                                             autocomplete="off"
-                                            v-model="newOpinion.opinions[rateable.uuid]"
+                                            v-model="opinions[rateable.uuid]"
                                             :value="index">
 
                                         <label class="btn btn-outline-secondary py-2 px-4" :for="rateable.name + 'option' + index">{{ index }}</label>
@@ -32,12 +32,13 @@
                             </span>
                             <span v-else>
                                 <label>{{ rateable.name }}</label>
-                                <input class="form-control" v-model="newOpinion.opinions[rateable.uuid]" :placeholder="(rateable.min_value + '-' + rateable.max_value)"/>
+                                <input class="form-control mb-2" v-model="opinions[rateable.uuid]" :placeholder="(rateable.min_value + '-' + rateable.max_value)"/>
                             </span>
+
+                            <label>Comment about {{ rateable.name }} (optional)</label>
+                            <input class="form-control mb-4" v-model="comments[rateable.uuid]" placeholder="Comment"/>
                         </div>
 
-                        <label>Comment</label>
-                        <input class="form-control" v-model="newOpinion.comment" placeholder="Comment"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -50,6 +51,8 @@
 </template>
 
 <script>
+import { Modal } from 'bootstrap';
+
 export default {
     components: {
         //
@@ -61,14 +64,11 @@ export default {
 
     data() {
         return {
-            rank: null,
-
             rateables: [],
             loading: true,
 
-            newOpinion: {
-                opinions: {},
-            },
+            opinions: {},
+            comments: {},
         }
     },
 
@@ -107,14 +107,22 @@ export default {
         },
 
         saveOpinion: function () {
-            // this.$api
-            //     .create('rate', {
-            //         targetable_type' => 'required|string',
-            //         'targetable_uuid' => 'required|uuid',
-            //         'rateable_uuid' => 'required|uuid',
-            //         'value' => 'required|string',
-            //         'comment' => 'nullable|string',
-            //     })
+            this.$api
+                .create('rates', {
+                    'targetable_type': this.targetable_type,
+                    'targetable_uuid': this.rateable_uuid,
+                    'opinions': this.opinions,
+                    'comments': this.comments,
+                })
+                .then((response) => {
+                    this.closeModal();
+                });
+        },
+
+        closeModal: function () {
+            var myModalEl = document.getElementById('addOpinionModal')
+            var modal = Modal.getInstance(myModalEl);
+            modal.hide();
         },
     },
 

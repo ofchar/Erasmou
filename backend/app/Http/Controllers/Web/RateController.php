@@ -9,6 +9,8 @@ use App\Models\Rateable;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class RateController extends Controller
 {
@@ -17,9 +19,23 @@ class RateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = QueryBuilder::for(Rate::class)
+            ->allowedFilters(
+                AllowedFilter::exact('targetable_type'),
+                AllowedFilter::scope('targetable_uuid'),
+            )
+            ->allowedSorts(
+                'created_at',
+            )
+            ->defaultSort('created_at')
+            ->with('rateable')
+            ->with('targetable')
+            ->with('user')
+            ->paginate($request->per_page ?? 15);
+
+        return RateResource::collection($data);
     }
 
     /**
@@ -33,26 +49,29 @@ class RateController extends Controller
         $request->validate([
             'targetable_type' => 'required|string',
             'targetable_uuid' => 'required|uuid',
-            'rateable_uuid' => 'required|uuid',
-            'value' => 'required|string',
-            'comment' => 'nullable|string',
+            'opinions' => 'required|array',
+            'comments' => 'required|array',
         ]);
 
         $targetableType = $request->targetable_type;
         $targetable = $targetableType::whereUuid($request->targetable_uuid)->firstOrFail();
 
-        $rateable = Rateable::whereUuid($request->rateable_uuid)->firstOrFail();
+        foreach($request->opinions as $rateable_uuid => $opinion) {
+            $rateable = Rateable::whereUuid($rateable_uuid)->firstOrFail();
 
-        $rate = Rate::create([
-            'targetable_type' => $targetableType,
-            'targetable_id' => $targetable->id,
-            'rateable_id' => $rateable->id,
-            'value' => $request->value,
-            'comment' => $request->comment,
-            'user_id' => Auth::user()->id,
-        ]);
+            $comment = array_key_exists($rateable_uuid, $request->comments) ? $request->comments[$rateable_uuid] : null;
 
-        return new RateResource($rate);
+            $rate = Rate::create([
+                'targetable_type' => $targetableType,
+                'targetable_id' => $targetable->id,
+                'rateable_id' => $rateable->id,
+                'value' => $opinion,
+                'comment' => $comment,
+                'user_id' => Auth::user()->id,
+            ]);
+        }
+
+        return response()->json([]);
     }
 
     /**

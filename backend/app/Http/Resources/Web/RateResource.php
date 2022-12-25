@@ -14,6 +14,27 @@ class RateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'uuid' => $this->uuid,
+            'targetable' => [
+                'uuid' => $this->targetable->uuid,
+                'type' => $this->targetable_type,
+            ],
+            'rateable' => [
+                'uuid' => $this->rateable->uuid,
+                'name' => $this->rateable->name,
+                'description' => $this->rateable->description,
+                'data_type' => $this->rateable->data_type,
+                'min_value' => $this->rateable->min_value,
+                'max_value' => $this->rateable->max_value,
+            ],
+            'value' => $this->value,
+            'comment' => $this->comment,
+            'user_uuid' => $this->user->uuid,
+            'user' => [
+                'username' => $this->user->username,
+            ],
+            'created_at' => $this->created_at,
+        ];
     }
 }
