@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="card text-start mt-3 bg-secondary text-white" v-if="city">
+        <div class="card text-start bg-secondary text-white" v-if="city">
             <h5 class="card-header">Info</h5>
             <div class="card-body">
                 <h5 class="card-title">{{ city.name }}</h5>

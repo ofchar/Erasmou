@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="card text-start mt-3 bg-secondary text-white" v-if="forum">
+        <div class="card text-start bg-secondary text-white" v-if="forum">
             <h5 class="card-header">Discussion</h5>
             <div class="card-body">
                 <h5 class="card-title">{{ forum.name }}</h5>

@@ -119,6 +119,8 @@ export default {
                     return 'App\\Models\\City';
                 case 2:
                     return 'App\\Models\\University';
+                case 3:
+                    return 'App\\Models\\Apartment';
             }
         },
 
@@ -144,7 +146,7 @@ export default {
         saveForum: function () {
             this.$api
                 .create('forums', {
-                    'forumable_type': 'App\\Models\\University',
+                    'forumable_type': this.forumableType,
                     'forumable_uuid': this.uuid,
                     'name': this.newForum.name,
                     'description': this.newForum.description,

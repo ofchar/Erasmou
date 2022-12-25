@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Helpers\Rate\RatesInfoAdderHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Web\CityResource;
 use App\Models\City;
@@ -36,6 +37,8 @@ class CityController extends Controller
             ->with('province')
             ->with('universities')
             ->paginate($request->per_page ?? 15);
+
+        $data = RatesInfoAdderHelper::addRates($data, City::class);
 
         return CityResource::collection($data);
     }

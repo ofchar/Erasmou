@@ -22,6 +22,14 @@ class CityResource extends JsonResource
             'description' => $this->description,
             'population' => $this->population,
             'universities' => UniversityResource::collection($this->universities),
+            'rates' => [
+                'overall' => $this->Overall,
+                'overall_original' => $this->Overall_original,
+                'prices' => $this->Prices,
+                'prices_original' => $this->Prices_original,
+                'funnes' => $this->Funnes,
+                'funnes_original' => $this->Funnes_original,
+            ]
         ];
     }
 }

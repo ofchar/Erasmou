@@ -29,7 +29,8 @@
                     </div>
                 </div>
                 <div v-for="apartment in apartments">
-                    <div class="hvr p-1" @mouseenter="apartment.collapsed = true" @mouseleave="apartment.collapsed = false">
+                    <div class="hvr p-1" @mouseenter="apartment.collapsed = true" @mouseleave="apartment.collapsed = false"
+                        @mousedown="gotoApartment(apartment)">
                         <div class="row m-2 align-items-center text-center">
                             <div class="col-4 text-start">{{ apartment.name }}</div>
                             <div class="col-2">
@@ -48,11 +49,11 @@
                     </div>
                     <CollapseTransition>
                         <div class="container hvred" v-show="apartment.collapsed">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-9">
                                     <div class="container">
                                         <div class="row align-items-center"><small>freshest reply</small></div>
-                                        <!-- <div class="row align-items-center text-center">{{ apartment.post.title }}</div> -->
+                                        <div class="row align-items-center text-center">{{ apartment.post.title }}</div>
 
                                     </div>
                                 </div>
@@ -60,7 +61,7 @@
                                     <div class="row"><small>total replies</small></div>
                                     <div class="row">{{ apartment.posts_count }}</div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </CollapseTransition>
                 </div>
@@ -163,7 +164,11 @@ export default {
                     this.apartments = response.data.data;
                     this.apartmentsMeta = response.data.meta;
                 });
-        }
+        },
+
+        gotoApartment: function (apartment) {
+            this.$router.push({ name: 'apartments-show', params: { uuid: apartment.uuid } });
+        },
     },
 
     mounted() {

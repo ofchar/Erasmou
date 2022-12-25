@@ -76,3 +76,5 @@ Route::apiResource('apartments', ApartmentController::class)->only('index', 'sho
 Route::apiResource('landlords', LandlordController::class)->only('index', 'show');
 
 Route::apiResource('rateables', RateableController::class)->only('index', 'show');
+
+Route::apiResource('rates', RateController::class)->only('index', 'show');

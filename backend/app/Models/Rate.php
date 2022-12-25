@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -59,5 +60,11 @@ class Rate extends Model
     public function user() : Relation
     {
         return $this->belongsTo(User::class);
+    }
+
+
+    public function scopeTargetableUuid(Builder $query, string $uuid) : Builder
+    {
+        return $this->baseMorphUuidScope($query, 'targetable', $uuid);
     }
 }
