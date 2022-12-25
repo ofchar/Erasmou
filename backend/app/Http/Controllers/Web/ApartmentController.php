@@ -114,12 +114,12 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Apartment $apartment)
     {
-        //
+        return new ApartmentResource($apartment);
     }
 
     /**
