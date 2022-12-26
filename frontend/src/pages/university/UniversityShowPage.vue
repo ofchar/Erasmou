@@ -4,22 +4,23 @@
             <div class="card-header">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-md-4 mt-auto"><h5>Info</h5></div>
-                    <div class="col-md-5 text-end mt-auto">
-                        <div class="row">
-                            <div class="col-8">
-                            </div>
-                            <div class="col-4">
-                                <RaterComponent
-                                    targetable_type="App\Models\University"
-                                    :rateable_uuid="uuid"/>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{ university.name }}</h5>
                 <p class="card-text">{{ university.description }}</p>
+
+                <div class="row align-items-center mt-3">
+                    <div class="col">
+                        <RankInfoDetailDisplayComponent :value="university.rates.overall" :value_original="university.rates.overall_original" text="overall"/>
+                    </div>
+                    <div class="col">
+                        <RankInfoDetailDisplayComponent :value="university.rates.education" :value_original="university.rates.education_original" text="education"/>
+                    </div>
+                    <div class="col">
+                        <RankInfoDetailDisplayComponent :value="university.rates.friendliness" :value_original="university.rates.friendliness_original" text="friendliness"/>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -67,6 +68,8 @@
         </div>
 
         <DiscussionComponent v-if="uuid" :type="2" :uuid="uuid"/>
+
+        <RatesDisplayComponent v-if="uuid" targetable_type="App\Models\University" :targetable_uuid="uuid"/>
     </div>
 </template>
 
@@ -77,6 +80,8 @@ import RankIconDisplayComponentVue from '@/components/utils/RankIconDisplayCompo
 import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 import DiscussionComponent from '@/components/forum/DiscussionComponent.vue';
 import RaterComponent from '@/components/rate/RaterComponent.vue';
+import RatesDisplayComponent from '@/components/rate/RatesDisplayComponent.vue';
+import RankInfoDetailDisplayComponent from '@/components/utils/RankInfoDetailDisplayComponent.vue';
 
 export default {
     components: {
@@ -84,6 +89,8 @@ export default {
         CollapseTransition,
         DiscussionComponent,
         RaterComponent,
+        RatesDisplayComponent,
+        RankInfoDetailDisplayComponent,
     },
     props: [
         //

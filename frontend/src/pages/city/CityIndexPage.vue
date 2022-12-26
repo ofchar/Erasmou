@@ -31,13 +31,13 @@
                         </div>
                         <div class="row align-items-center mt-4">
                             <div class="col-4 align-middle">
-                                <RankInfoDisplayComponentVue value="1" text="overall" :hovers="city.isHovering"/>
+                                <RankInfoDisplayComponentVue :value="city.rates.overall" text="overall" :hovers="city.isHovering"/>
                             </div>
                             <div class="col-4">
-                                <RankInfoDisplayComponentVue value="-1" text="prices" :hovers="city.isHovering"/>
+                                <RankInfoDisplayComponentVue :value="city.rates.prices" text="prices" :hovers="city.isHovering"/>
                             </div>
                             <div class="col-4">
-                                <RankInfoDisplayComponentVue value="1" text="funnes" :hovers="city.isHovering"/>
+                                <RankInfoDisplayComponentVue :value="city.rates.funnes" text="funnes" :hovers="city.isHovering"/>
                             </div>
                         </div>
                     </div>

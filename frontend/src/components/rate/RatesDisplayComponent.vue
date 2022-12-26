@@ -11,9 +11,6 @@
                             <input class="form-control" v-model="search" placeholder="search">
                         </div>
                         <div class="col-4 px-3">
-                            <!-- <button class="btn btn-dark px-4" data-bs-toggle="modal" data-bs-target="#addForumModal"
-                                :disabled="!loggedIn">rate this</button> -->
-
                             <RaterComponent :targetable_type="targetable_type" :rateable_uuid="targetable_uuid" />
                         </div>
                     </div>
@@ -22,11 +19,19 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <div class="row container mb-4 hvr p-1" v-for="ratesGroup in rates">
+                <div class="row container mb-4 hvr p-1" v-for="ratesGroup in rates" @mouseenter="ratesGroup.collapsed = true" @mouseleave="ratesGroup.collapsed = false">
                     <div class="row">Rates by {{ ratesGroup.values[0].user.username }}, created on {{ formattedDate(ratesGroup.values[0].created_at) }}</div>
                     <div class="row mt-1 col" v-for="rate in ratesGroup.values">
                         {{ rate.rateable.name }}: {{ formattedRate(rate) }}
                     </div>
+
+                    <CollapseTransition>
+                        <div class="container hvred" v-show="ratesGroup.collapsed">
+                            <div class="row mt-1 col" v-for="rate in ratesGroup.values">
+                                {{ rate.rateable.name }}: {{ rate.comment ?? 'User has not posted a comment' }}
+                            </div>
+                        </div>
+                    </CollapseTransition>
                 </div>
             </div>
         </div>
@@ -39,10 +44,12 @@
 <script>
 import { formatDate } from '@/services/formatDate.js';
 import RaterComponent from './RaterComponent.vue';
+import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 
 export default {
     components: {
         RaterComponent,
+        CollapseTransition,
     },
     props: [
         'targetable_type', 'targetable_uuid'

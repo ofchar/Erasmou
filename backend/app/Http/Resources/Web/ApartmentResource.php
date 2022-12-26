@@ -37,6 +37,16 @@ class ApartmentResource extends JsonResource
                 'uuid' => $this->user->uuid,
                 'username' => $this->user->username,
             ],
+            'rates' => [
+                'price' => $this->Price,
+                'price_original' => $this->Price_original,
+                'cleanliness' => $this->Cleanliness,
+                'cleanliness_original' => $this->Cleanliness_original,
+                'location' => $this->Location,
+                'location_original' => $this->Location_original,
+                'overall' => $this->Overall,
+                'overall_original' => $this->Overall_original,
+            ],
         ];
     }
 }

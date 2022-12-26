@@ -72,7 +72,9 @@ class CityController extends Controller
      */
     public function show(City $city)
     {
-        return new CityResource($city);
+        $data = RatesInfoAdderHelper::addRates([$city], City::class);
+
+        return new CityResource($data[0]);
     }
 
     /**

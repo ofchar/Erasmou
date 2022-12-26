@@ -34,16 +34,16 @@
                         <div class="row m-2 align-items-center text-center">
                             <div class="col-4 text-start">{{ apartment.name }}</div>
                             <div class="col-2">
-                                <RankInfoDisplayComponent :textOnly="true" :text="apartment.Price" :hovers="apartment.collapsed"/>
+                                <RankInfoDisplayComponent :textOnly="true" :text="apartment.rates.price" :hovers="apartment.collapsed"/>
                             </div>
                             <div class="col-2">
-                                <RankInfoDisplayComponent :value="apartment.Cleanliness" :text="apartment.Cleanliness_original" :hovers="apartment.collapsed"/>
+                                <RankInfoDisplayComponent :value="apartment.rates.cleanliness" :text="apartment.rates.cleanliness_original" :hovers="apartment.collapsed"/>
                             </div>
                             <div class="col-2">
-                                <RankInfoDisplayComponent :value="apartment.Location" :text="apartment.Location_original" :hovers="apartment.collapsed"/>
+                                <RankInfoDisplayComponent :value="apartment.rates.location" :text="apartment.rates.location_original" :hovers="apartment.collapsed"/>
                             </div>
                             <div class="col-2">
-                                <RankInfoDisplayComponent :value="apartment.Overall" :text="apartment.Overall_original" :hovers="apartment.collapsed"/>
+                                <RankInfoDisplayComponent :value="apartment.rates.overall" :text="apartment.rates.overall_original" :hovers="apartment.collapsed"/>
                             </div>
                         </div>
                     </div>

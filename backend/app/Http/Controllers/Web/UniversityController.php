@@ -68,7 +68,9 @@ class UniversityController extends Controller
      */
     public function show(University $university)
     {
-        return new UniversityResource($university);
+        $data = RatesInfoAdderHelper::addRates([$university], University::class);
+
+        return new UniversityResource($data[0]);
     }
 
     /**

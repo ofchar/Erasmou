@@ -29,7 +29,7 @@ class RateController extends Controller
             ->allowedSorts(
                 'created_at',
             )
-            ->defaultSort('created_at')
+            ->defaultSort('-created_at')
             ->with('rateable')
             ->with('targetable')
             ->with('user')
