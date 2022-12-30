@@ -190,5 +190,10 @@ class UserController extends Controller
                 'error' => 'Verification code used',
             ], 403);
         }
+
+        $user->type = User::TYPE_ERASMUS;
+        $user->save();
+
+        return response()->json([], 200);
     }
 }

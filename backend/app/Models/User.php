@@ -90,4 +90,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rate::class);
     }
+
+    /**
+     * Get Country of the User.
+     */
+    public function country() : Relation
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * Get City of the User.
+     */
+    public function city() : Relation
+    {
+        return $this->belongsTo(City::class);
+    }
 }
