@@ -21,6 +21,9 @@
                     <li class="nav-item">
                         <router-link class='nav-link' to="/universities">Universities</router-link>
                     </li>
+                    <li class="nav-item" v-if="user && user.type >= 40">
+                        <router-link class='nav-link' to="/verification-codes">Verification Codes</router-link>
+                    </li>
                 </ul>
 
                 <div class="text-white">
@@ -31,9 +34,7 @@
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <!-- <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li> -->
-                                <!-- <li><hr class="dropdown-divider"></li> -->
+                                <li><router-link class='dropdown-item' to="/me">Profile</router-link></li>
                                 <li><a class="dropdown-item" @click="logOut()">Log out</a></li>
                             </ul>
                         </li>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addOpinionModal" :disabled="(!loggedIn || loading)">Rate this object</button>
+        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addOpinionModal" :disabled="(!canRate || loading)">Rate this object</button>
 
 
         <div class="modal fade text-dark" id="addOpinionModal" tabindex="-1" aria-labelledby="opinionModal" aria-hidden="true">
@@ -76,8 +76,14 @@ export default {
         //
     },
     computed: {
-        loggedIn: function () {
-            return localStorage.getItem('user') != undefined ? true : false
+        canRate: function () {
+            let role = localStorage.getItem('role');
+
+            if(role == undefined || role < 30) {
+                return false;
+            }
+
+            return true;
         },
     },
 

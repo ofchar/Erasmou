@@ -5,6 +5,18 @@
             <div class="card-body">
                 <h5 class="card-title">{{ city.name }}</h5>
                 <p class="card-text">{{ city.description }}</p>
+
+                <div class="row align-items-center mt-3">
+                    <div class="col">
+                        <RankInfoDetailDisplayComponent :value="city.rates.overall" :value_original="city.rates.overall_original" text="overall"/>
+                    </div>
+                    <div class="col">
+                        <RankInfoDetailDisplayComponent :value="city.rates.prices" :value_original="city.rates.prices_original" text="prices"/>
+                    </div>
+                    <div class="col">
+                        <RankInfoDetailDisplayComponent :value="city.rates.funnes" :value_original="city.rates.funnes_original" text="funnes"/>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -59,6 +71,8 @@
 
         <DiscussionComponent v-if="uuid" :type="1" :uuid="uuid"/>
 
+        <RatesDisplayComponent v-if="uuid" targetable_type="App\Models\City" :targetable_uuid="uuid"/>
+
         <ApartmentDisplayComponent v-if="uuid" :uuid="uuid"/>
     </div>
 </template>
@@ -71,6 +85,8 @@ import RankInfoDisplayComponent from '@/components/utils/RankInfoDisplayComponen
 import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 import DiscussionComponent from '@/components/forum/DiscussionComponent.vue';
 import ApartmentDisplayComponent from '@/components/apartment/ApartmentDisplayComponent.vue';
+import RatesDisplayComponent from '@/components/rate/RatesDisplayComponent.vue';
+import RankInfoDetailDisplayComponent from '@/components/utils/RankInfoDetailDisplayComponent.vue';
 
 export default {
     components: {
@@ -79,6 +95,8 @@ export default {
         CollapseTransition,
         DiscussionComponent,
         ApartmentDisplayComponent,
+        RatesDisplayComponent,
+        RankInfoDetailDisplayComponent,
     },
     props: [
         //
