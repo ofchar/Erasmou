@@ -11,6 +11,9 @@ export const showSwal = function (self, type, title, body = null) {
         case 3:
             icon = 'success';
             break;
+        case 4:
+            icon = 'question';
+            break;
     }
 
     return self.$swal.fire({

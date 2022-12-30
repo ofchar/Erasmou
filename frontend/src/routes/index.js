@@ -16,6 +16,10 @@ import ForumShowPage from '../pages/forum/ForumShowPage.vue';
 
 import ApartmentShowPage from '../pages/apartment/ApartmentShowPage.vue';
 
+import VerificationCodeIndexPage from '../pages/verificationCode/VerificationCodeIndexPage.vue';
+
+import UserPage from '../pages/authentication/UserPage.vue';
+
 const routes = [
     {
         path: "/",
@@ -84,6 +88,18 @@ const routes = [
         path: "/apartments/:uuid",
         name: "apartments-show",
         component: ApartmentShowPage,
+    },
+
+    {
+        path: "/verification-codes",
+        name: "verification-codes",
+        component: VerificationCodeIndexPage,
+    },
+
+    {
+        path: "/me",
+        name: "me",
+        component: UserPage,
     },
 ];
 

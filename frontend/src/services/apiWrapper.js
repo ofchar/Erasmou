@@ -61,6 +61,7 @@ export default class api {
         return this.instance.delete('/webapi/' + model + '/' + uuid, {})
     }
 
+
     get(route, params) {
         return this.instance.get(route, {
             params: params
@@ -69,5 +70,9 @@ export default class api {
 
     post (route, data) {
         return this.instance.post(route, data);
+    }
+
+    put (route, data) {
+        return this.instance.put(route, data);
     }
 }
