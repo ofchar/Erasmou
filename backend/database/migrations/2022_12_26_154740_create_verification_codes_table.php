@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('verification_codes', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->string('code', 32);
             $table->integer('uses_left');
             $table->foreignId('user_id')->constrained();

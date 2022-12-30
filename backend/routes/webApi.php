@@ -12,7 +12,7 @@ use App\Http\Controllers\Web\RateableController;
 use App\Http\Controllers\Web\RateController;
 use App\Http\Controllers\Web\UniversityController;
 use App\Http\Controllers\Web\UserController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Web\VerificationCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +55,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('landlords', LandlordController::class)->except('index', 'show');
 
     Route::apiResource('rates', RateController::class)->except('index', 'show');
+
+    Route::put('users/{user}/verify', [UserController::class, 'verify']);
+    Route::apiResource('users', UserController::class)->only('create');
+
+    Route::apiResource('verification-codes', VerificationCodeController::class);
 });
 
 Route::apiResource('countries', CountryController::class)->only('index', 'show');
