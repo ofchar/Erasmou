@@ -47,23 +47,6 @@
                             </div>
                         </div>
                     </div>
-                    <CollapseTransition>
-                        <div class="container hvred" v-show="apartment.collapsed">
-                            <!-- <div class="row">
-                                <div class="col-9">
-                                    <div class="container">
-                                        <div class="row align-items-center"><small>freshest reply</small></div>
-                                        <div class="row align-items-center text-center">{{ apartment.post.title }}</div>
-
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="row"><small>total replies</small></div>
-                                    <div class="row">{{ apartment.posts_count }}</div>
-                                </div>
-                            </div> -->
-                        </div>
-                    </CollapseTransition>
                 </div>
             </div>
             <div class="card-footer">
