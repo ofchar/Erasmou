@@ -25,7 +25,7 @@
                             <div class="row"><small>Province</small></div>
                         </div>
                         <div class="col">Population</div>
-                        <div class="col">Opinion</div>
+                        <div class="col">Overall</div>
                         <div class="col">Prices</div>
                         <div class="col">Fun</div>
                         <div class="col">Universities</div>

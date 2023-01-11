@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-export default class api {
+export default class apiWrapper {
     instance
 
     constructor(url) {

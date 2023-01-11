@@ -23,21 +23,21 @@
                         <h4 class="card-title">{{ university.name }}</h4>
                         <p class="card-text text-start">{{ university.description }}</p>
                         <div class="container justify-content-start m-2 mt-4">
-                            <div class="row text-start" v-for="university in university.universities">
+                            <div class="row text-start" v-for="faculty in university.faculties">
                                 <div class="col">
-                                    {{ university.name }}
+                                    {{ faculty.name }}
                                 </div>
                             </div>
                         </div>
                         <div class="row align-items-center mt-4">
                             <div class="col-4 align-middle">
-                                <RankInfoDisplayComponentVue :value="university.rates.overall" text="overall" :hovers="university.isHovering"/>
+                                <RankInfoDisplayComponent :value="university.rates.overall" text="overall" :hovers="university.isHovering"/>
                             </div>
                             <div class="col-4">
-                                <RankInfoDisplayComponentVue :value="university.rates.education" text="education" :hovers="university.isHovering"/>
+                                <RankInfoDisplayComponent :value="university.rates.education" text="education" :hovers="university.isHovering"/>
                             </div>
                             <div class="col-4">
-                                <RankInfoDisplayComponentVue :value="university.rates.friendliness" text="friendliness" :hovers="university.isHovering"/>
+                                <RankInfoDisplayComponent :value="university.rates.friendliness" text="friendliness" :hovers="university.isHovering"/>
                             </div>
                         </div>
                     </div>
@@ -51,12 +51,12 @@
 </template>
 
 <script>
-import RankInfoDisplayComponentVue from '@/components/utils/RankInfoDisplayComponent.vue';
+import RankInfoDisplayComponent from '@/components/utils/RankInfoDisplayComponent.vue';
 import SelectComponent from '@/components/utils/SelectComponent.vue';
 
 export default {
     components: {
-        RankInfoDisplayComponentVue,
+        RankInfoDisplayComponent,
         SelectComponent,
     },
     props: [

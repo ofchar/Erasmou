@@ -16,6 +16,9 @@
                     <div class="col">
                         <RankInfoDetailDisplayComponent :value="city.rates.funnes" :value_original="city.rates.funnes_original" text="funnes"/>
                     </div>
+                    <div class="col">
+                        <RankInfoDetailDisplayComponent :value="city.rates.transport" :value_original="city.rates.transport_original" text="transport"/>
+                    </div>
                 </div>
             </div>
         </div>

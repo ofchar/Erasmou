@@ -31,6 +31,21 @@
                             <div class="addressText" v-else><i>--</i></div>
                         </div>
                     </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <RankInfoDetailDisplayComponent :value="apartment.rates.overall" :value_original="apartment.rates.overall_original" text="overall"/>
+                        </div>
+                        <div class="col">
+                            <RankInfoDetailDisplayComponent :value="apartment.rates.cleanliness" :value_original="apartment.rates.cleanliness_original" text="cleanliness"/>
+                        </div>
+                        <div class="col">
+                            <RankInfoDetailDisplayComponent :value="apartment.rates.location" :value_original="apartment.rates.location_original" text="location"/>
+                        </div>
+                        <div class="col">
+                            <RankInfoDetailDisplayComponent :value="apartment.rates.transport" :value_original="apartment.rates.transport_original" text="transport"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,11 +59,13 @@
 <script>
 import DiscussionComponent from '@/components/forum/DiscussionComponent.vue';
 import RatesDisplayComponent from '@/components/rate/RatesDisplayComponent.vue';
+import RankInfoDetailDisplayComponent from '@/components/utils/RankInfoDetailDisplayComponent.vue';
 
 export default {
     components: {
         DiscussionComponent,
         RatesDisplayComponent,
+        RankInfoDetailDisplayComponent,
     },
     props: [
         //

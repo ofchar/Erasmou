@@ -8,7 +8,7 @@
                 <div class="col-md-5 text-end mt-auto">
                     <div class="row">
                         <div class="col-8">
-                            <input class="form-control" v-model="search" placeholder="search">
+                            <!-- <input class="form-control" v-model="search" placeholder="search"> -->
                         </div>
                         <div class="col-4 px-3">
                             <RaterComponent :targetable_type="targetable_type" :rateable_uuid="targetable_uuid" />

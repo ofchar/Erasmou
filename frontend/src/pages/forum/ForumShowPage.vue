@@ -31,7 +31,7 @@
                     <div class="hvr p-1" @mouseenter="post.collapsed = true" @mouseleave="post.collapsed = false">
                         <div class="row m-2 align-items-center text-center">
                             <div class="col-6 text-start">{{ post.title }}</div>
-                            <div class="col-3">by {{ post.user.username }}</div>
+                            <div class="col-3">by {{ post.user.username }} <font-awesome-icon v-if="post.user.type >= 30" icon="fa-solid fa-star"/></div>
                             <div class="col-3">{{ formattedDate(post.created_at) }}</div>
                         </div>
                     </div>

@@ -28,7 +28,7 @@
 		<section class="features-icons bg-light text-center">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
 							<div class="features-icons-icon d-flex justify-content-center">
 								<font-awesome-icon size="4x" icon="fa-solid fa-check-double"/>
@@ -37,22 +37,13 @@
 							<p class="lead mb-0">We make sure that data comes only from verified Erasmus students.</p>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
 							<div class="features-icons-icon d-flex justify-content-center">
 								<font-awesome-icon size="4x" icon="fa-solid fa-sitemap" />
 							</div>
 							<h3>Organized for you</h3>
 							<p class="lead mb-0">All of the information neatly organized.</p>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="features-icons-item mx-auto mb-0 mb-lg-3">
-							<div class="features-icons-icon d-flex justify-content-center">
-								icon here
-							</div>
-							<h3>Some other feature</h3>
-							<p class="lead mb-0">I'm yet to think of</p>
 						</div>
 					</div>
 				</div>
