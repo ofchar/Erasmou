@@ -13,6 +13,7 @@ use App\Models\Rateable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -55,6 +56,10 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('create-content')) {
+            abort(403);
+        }
+
         $request->validate([
             'landlord_uuid' => 'nullable|uuid',
             'landlord_name' => 'nullable|string',

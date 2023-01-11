@@ -9,6 +9,7 @@ use App\Models\Rateable;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -46,6 +47,10 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('create-content')) {
+            abort(403);
+        }
+
         $request->validate([
             'targetable_type' => 'required|string',
             'targetable_uuid' => 'required|uuid',

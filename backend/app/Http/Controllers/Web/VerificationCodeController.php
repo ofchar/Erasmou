@@ -12,6 +12,7 @@ use App\Models\VerificationCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -38,6 +39,10 @@ class VerificationCodeController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('create-codes')) {
+            abort(403);
+        }
+
         $request->validate([
             'uses' => 'required|numeric',
         ]);
@@ -59,6 +64,10 @@ class VerificationCodeController extends Controller
      */
     public function destroy(VerificationCode $verificationCode)
     {
+        if (!Gate::allows('create-codes')) {
+            abort(403);
+        }
+
         $verificationCode->delete();
 
         return response()->json([], 200);
