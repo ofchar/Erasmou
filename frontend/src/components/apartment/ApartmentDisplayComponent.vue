@@ -80,18 +80,53 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <label>Landlord</label>
-                        <SelectComponent route="landlords" v-model="newApartment.landlord" />
+                        <div class="container">
+                            <label>Landlord</label>
+                            <div class="row" v-if="!show_add_landlord">
+                                <div class="col-10">
+                                    <SelectComponent route="landlords" v-model="newApartment.landlord" />
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-dark btn-sm" @click="show_add_landlord = true">Add landlord</button>
+                                </div>
+                            </div>
 
-                        <label>Landlord</label>
-                        <input class="form-control" v-model="newApartment.name" placeholder="Title"/>
+                            <div class="container px-5 py-1 border border-primary" v-if="show_add_landlord">
+                                <label>Name</label>
+                                <input class="form-control" v-model="newLandlord.name"/>
 
-                        <label>Body</label>
-                        <textarea class="form-control" v-model="newApartment.description" rows="5" placeholder="Body"></textarea>
+                                <label>Phone</label>
+                                <input class="form-control" v-model="newLandlord.phone"/>
+
+                                <label>Email</label>
+                                <input class="form-control" v-model="newLandlord.email"/>
+
+                                <label>Website</label>
+                                <input class="form-control" v-model="newLandlord.website"/>
+                            </div>
+
+                            <label>Name</label>
+                            <input class="form-control" v-model="newApartment.name"/>
+
+                            <label>Description</label>
+                            <textarea class="form-control" v-model="newApartment.description" rows="5"></textarea>
+
+                            <label>Website url (if exists)</label>
+                            <input class="form-control" v-model="newApartment.foreign_url"/>
+
+                            <label>Road</label>
+                            <input class="form-control" v-model="newApartment.road"/>
+
+                            <label>Building number</label>
+                            <input class="form-control" v-model="newApartment.building_number"/>
+
+                            <label>Apartment number</label>
+                            <input class="form-control" v-model="newApartment.apartment_number"/>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="saveForum()">Save changes</button>
+                        <button type="button" class="btn btn-primary" @click="addApartment()">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -105,6 +140,9 @@ import RankIconDisplayComponent from '../utils/RankIconDisplayComponent.vue';
 import RankInfoDisplayComponent from '../utils/RankInfoDisplayComponent.vue';
 import RankInfoParseDisplayComponent from '../utils/RankInfoParseDisplayComponent.vue';
 import SelectComponent from '../utils/SelectComponent.vue';
+
+import { showSwal } from '@/services/swalDisplay.js'
+import { Modal } from 'bootstrap';
 
 export default {
     components: {
@@ -129,7 +167,7 @@ export default {
                 landlord: null,
                 name: null,
                 description: null,
-                url: null,
+                foreign_url: null,
                 road: null,
                 building_number: null,
                 apartment_number: null,
@@ -141,6 +179,8 @@ export default {
                 email: null,
                 website: null,
             },
+
+            show_add_landlord: false,
         }
     },
 
@@ -168,6 +208,52 @@ export default {
 
         gotoApartment: function (apartment) {
             this.$router.push({ name: 'apartments-show', params: { uuid: apartment.uuid } });
+        },
+
+        addApartment: function () {
+            let landlord = {};
+            if (this.newApartment.landlord) {
+                landlord = {
+                    'landlord_uuid': this.newApartment.landlord.uuid,
+                };
+            }
+            else {
+                landlord = {
+                    'landlord_name': this.newLandlord.name,
+                    'landlord_phone': this.newLandlord.phone,
+                    'landlord_email': this.newLandlord.email,
+                    'landlord_website': this.newLandlord.website,
+                }
+            }
+
+            this.$api
+                .create('apartments', {
+                    ...landlord,
+                    'name': this.newApartment.name,
+                    'description': this.newApartment.description,
+                    'foreign_url': this.newApartment.foreign_url,
+                    'road': this.newApartment.road,
+                    'building_number': this.newApartment.building_number,
+                    'apartment_number': this.newApartment.apartment_number,
+                    'city_uuid': this.uuid,
+                })
+                .then((response) => {
+                    showSwal(this, 3, 'Apartment added!');
+
+                    this.loadApartments();
+
+                    var myModalEl = document.getElementById('addApartmentModal')
+                    var modal = Modal.getInstance(myModalEl);
+                    modal.hide();
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        showSwal(this, 1, 'Not all fields were correctly filled', error.response.data.message);
+                    }
+                    else {
+                        showSwal(this, 1, 'An error occurred');
+                    }
+                });
         },
     },
 

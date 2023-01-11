@@ -6,9 +6,12 @@ use App\Helpers\Rate\RatesInfoAdderHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Web\ApartmentResource;
 use App\Models\Apartment;
+use App\Models\City;
+use App\Models\Landlord;
 use App\Models\Rate;
 use App\Models\Rateable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -45,16 +48,6 @@ class ApartmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -62,7 +55,56 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'landlord_uuid' => 'nullable|uuid',
+            'landlord_name' => 'nullable|string',
+            'landlord_email' => 'nullable|email|unique:landlords,email',
+            'landlord_phone' => 'nullable|string|unique:landlords,phone',
+            'landlord_website' => 'nullable|string|unique:landlords,website',
+
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'foreign_url' => 'nullable|string',
+            'road' => 'required|string',
+            'building_number' => 'required|string',
+            'apartment_number' => 'nullable|string',
+            'city_uuid' => 'required|uuid',
+        ]);
+
+        $city = City::whereUuid($request->city_uuid)->firstOrFail();
+
+        DB::beginTransaction();
+
+        $landlord = null;
+        if(isset($request->landlord_uuid)) {
+            $landlord = Landlord::whereUuid($request->landlord_uuid)->firstOrFail();
+        }
+        else {
+            $landlord = Landlord::create([
+                'name' => $request->landlord_name,
+                'email' => $request->landlord_email,
+                'phone' => $request->landlord_phone,
+                'website' => $request->landlord_website,
+                'user_id' => Auth::user()->id,
+                'city_id' => $city->id,
+            ]);
+        }
+
+        $apartment = Apartment::create([
+            'landlord_id' => $landlord->id,
+            'user_id' => Auth::user()->id,
+            'city_id' => $city->id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'foreign_url' => $request->foreign_url,
+            'road' => $request->road,
+            'building_number' => $request->building_number,
+            'apartment_number' => $request->apartment_number,
+        ]);
+
+        DB::commit();
+
+        return new ApartmentResource($apartment);
     }
 
     /**
@@ -76,17 +118,6 @@ class ApartmentController extends Controller
         $data = RatesInfoAdderHelper::addRates([$apartment], Apartment::class);
 
         return new ApartmentResource($data[0]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
