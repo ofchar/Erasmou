@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import DashboardPage from '../pages/dashboard/DashboardPage.vue';
 
 import LoginPage from '../pages/authentication/LoginPage.vue';
+import RegisterPage from '../pages/authentication/RegisterPage.vue';
 
 import CountryIndexPage from '../pages/country/CountryIndexPage.vue';
 import CountryShowPage from '../pages/country/CountryShowPage.vue';
@@ -35,15 +36,11 @@ const routes = [
         //     next(handleLogged('/'))
         // },
     },
-
-    // {
-    //     path: "/register",
-    //     name: "register",
-    //     component: RegisterPage,
-    //     beforeEnter: (to, from, next) => {
-    //         next(handleLogged('/'))
-    //     },
-    // },
+    {
+        path: "/register",
+        name: "register",
+        component: RegisterPage,
+    },
 
     {
         path: "/countries",

@@ -6,8 +6,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { faFaceSmile, faFaceMeh, faFaceFrown, faFaceMehBlank } from '@fortawesome/free-regular-svg-icons'
-import { faCheckDouble, faSitemap, faStar } from '@fortawesome/free-solid-svg-icons'
-library.add( faFaceSmile, faFaceMeh, faFaceFrown, faFaceMehBlank, faCheckDouble, faSitemap, faStar );
+import { faCheckDouble, faSitemap, faStar, faQuestion } from '@fortawesome/free-solid-svg-icons'
+library.add( faFaceSmile, faFaceMeh, faFaceFrown, faFaceMehBlank, faCheckDouble, faSitemap, faStar, faQuestion );
 
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';

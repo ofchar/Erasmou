@@ -62,12 +62,12 @@ class UserController extends Controller
         DB::beginTransaction();
 
         if(isset($request->verification_code)) {
-            $verificationCode = VerificationCode::whereCode($request->verification_code)->firstOrFail();
+            $verificationCode = VerificationCode::whereCode($request->verification_code)->first();
 
-            if($verificationCode->uses_left == -1) {
+            if($verificationCode && $verificationCode->uses_left == -1) {
                 $type = User::TYPE_ERASMUS;
             }
-            else if($verificationCode->uses_left > 0) {
+            else if($verificationCode && $verificationCode->uses_left > 0) {
                 $type = User::TYPE_ERASMUS;
 
                 $verificationCode->uses_left = $verificationCode->uses_left - 1;
@@ -75,8 +75,8 @@ class UserController extends Controller
             }
             else {
                 return response()->json([
-                    'error' => 'Verification code used',
-                ], 403);
+                    'message' => 'Verification code used or incorrect',
+                ], 400);
             }
         }
         else {
