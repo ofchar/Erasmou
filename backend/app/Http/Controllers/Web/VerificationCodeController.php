@@ -25,6 +25,10 @@ class VerificationCodeController extends Controller
      */
     public function index()
     {
+        if (!Gate::allows('create-codes')) {
+            abort(403);
+        }
+
         $data = QueryBuilder::for(VerificationCode::class)
             ->paginate(15);
 

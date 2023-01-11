@@ -8,14 +8,36 @@
             </div>
             <div class="card-body container">
                 <h5 class="card-title">Welcome {{ user.first_name }} {{ user.last_name }}</h5>
-                    <div class="row justify-content-start">
-                        <div class="col">
-                            Your current rank is: <b>{{ getRankName(user.type) }}</b>
-                            <button class="mx-3 btn btn-dark btn-sm" v-if="user.type < 30" data-bs-toggle="modal"
-                                data-bs-target="#verifyModal">Verify now</button>
-
-                        </div>
+                <div class="row justify-content-start">
+                    <div class="col">
+                        Your current rank is: <b>{{ getRankName(user.type) }}</b>
+                        <button class="mx-3 btn btn-dark btn-sm" v-if="user.type < 30" data-bs-toggle="modal"
+                            data-bs-target="#verifyModal">Verify now</button>
                     </div>
+                </div>
+
+                <label class="mt-4 h5">Your details:</label>
+                <div class="row justify-content-start">
+                    <div class="col">
+                        <label class="mt-2">Username</label>
+                        <div>{{ user.username }}</div>
+
+                        <label class="mt-2">Email</label>
+                        <div>{{ user.email }}</div>
+                    </div>
+                    <div class="col">
+                        <label class="mt-2">Phone</label>
+                        <div>{{ user.username }}</div>
+
+                        <label class="mt-2">Country, city</label>
+                        <div>{{ user.country.name }}, {{ user.city.name }}</div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start">
+                    <label class="mt-2">Bio</label>
+                    <div>{{ user.bio }}</div>
+                </div>
             </div>
         </div>
 
@@ -59,8 +81,10 @@ export default {
             verificationCode: null,
 
             ranks: {
-                10: 'not verified',
-                30: 'verified Erasmus',
+                10: 'Not verified',
+                20: 'Future Erasmus',
+                30: 'Verified Erasmus',
+                40: 'ESN member',
                 100: 'Admin',
             }
         }
@@ -107,5 +131,8 @@ export default {
 </script>
 
 <style>
+label {
+    font-weight: bold;
+}
 
 </style>
