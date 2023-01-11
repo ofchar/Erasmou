@@ -50,7 +50,15 @@
                 </div>
             </div>
             <div class="card-footer">
-                Showing {{ apartmentsMeta.from }} to {{ apartmentsMeta.to }} of {{ apartmentsMeta.total }} total
+                <div class="row">
+                    <div class="col">
+                        Showing {{ apartmentsMeta.from }} to {{ apartmentsMeta.to }} of {{ apartmentsMeta.total }} total
+                    </div>
+                    <div class="col text-end">
+                        <button class="btn btn-sm btn-dark" @click="prevPage">&lt;&lt;</button>
+                        <button class="btn btn-sm btn-dark" @click="nextPage">>></button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -142,7 +150,9 @@ export default {
     data() {
         return {
             apartments: null,
-            apartmentsMeta: null,
+            apartmentsMeta: {
+                current_page: 1,
+            },
 
             search: null,
 
@@ -182,11 +192,25 @@ export default {
                 .index('apartments', {
                     'filter[city_uuid]': this.uuid,
                     'filter[search]': this.search,
+                    'page': this.apartmentsMeta.current_page,
                 })
                 .then((response) => {
                     this.apartments = response.data.data;
                     this.apartmentsMeta = response.data.meta;
                 });
+        },
+
+        prevPage: function () {
+            if(this.apartmentsMeta.current_page > 1) {
+                this.apartmentsMeta.current_page--;
+                this.loadApartments();
+            }
+        },
+        nextPage: function () {
+            if(this.apartmentsMeta.current_page < this.apartmentsMeta.last_page) {
+                this.apartmentsMeta.current_page++;
+                this.loadApartments();
+            }
         },
 
         gotoApartment: function (apartment) {

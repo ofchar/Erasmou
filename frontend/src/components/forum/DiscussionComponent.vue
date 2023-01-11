@@ -49,7 +49,15 @@
                 </div>
             </div>
             <div class="card-footer">
-                Showing {{ forumsMeta.from }} to {{ forumsMeta.to }} of {{ forumsMeta.total }} total
+                <div class="row">
+                    <div class="col">
+                        Showing {{ forumsMeta.from }} to {{ forumsMeta.to }} of {{ forumsMeta.total }} total
+                    </div>
+                    <div class="col text-end">
+                        <button class="btn btn-sm btn-dark" @click="prevPage">&lt;&lt;</button>
+                        <button class="btn btn-sm btn-dark" @click="nextPage">>></button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -96,7 +104,9 @@ export default {
     data() {
         return {
             forums: null,
-            forumsMeta: null,
+            forumsMeta: {
+                current_page: 1,
+            },
 
             search: null,
 
@@ -141,6 +151,19 @@ export default {
                     this.forums = response.data.data;
                     this.forumsMeta = response.data.meta;
                 })
+        },
+
+        prevPage: function () {
+            if(this.forumsMeta.current_page > 1) {
+                this.forumsMeta.current_page--;
+                this.loadForums();
+            }
+        },
+        nextPage: function () {
+            if(this.forumsMeta.current_page < this.forumsMeta.last_page) {
+                this.forumsMeta.current_page++;
+                this.loadForums();
+            }
         },
 
         saveForum: function () {

@@ -44,7 +44,15 @@
                 <div v-if="posts.length == 0">No replies yet, be the first one to reply!</div>
             </div>
             <div class="card-footer">
-                Showing {{ postsMeta.from }} to {{ postsMeta.to }} of {{ postsMeta.total }} total
+                <div class="row">
+                    <div class="col">
+                        Showing {{ postsMeta.from }} to {{ postsMeta.to }} of {{ postsMeta.total }} total
+                    </div>
+                    <div class="col text-end">
+                        <button class="btn btn-sm btn-dark" @click="prevPage">&lt;&lt;</button>
+                        <button class="btn btn-sm btn-dark" @click="nextPage">>></button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -98,7 +106,9 @@ export default {
             forum: null,
 
             posts: [],
-            postsMeta: [],
+            postsMeta: {
+                current_page: 1,
+            },
             postsSearch: null,
 
             newPost: {
@@ -138,6 +148,19 @@ export default {
                     this.posts = response.data.data;
                     this.postsMeta = response.data.meta;
                 })
+        },
+
+        prevPage: function () {
+            if(this.postsMeta.current_page > 1) {
+                this.postsMeta.current_page--;
+                this.loadPosts();
+            }
+        },
+        nextPage: function () {
+            if(this.postsMeta.current_page < this.postsMeta.last_page) {
+                this.postsMeta.current_page++;
+                this.loadPosts();
+            }
         },
 
         saveReply: function () {
