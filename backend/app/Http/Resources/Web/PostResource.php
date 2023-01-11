@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'user' => [
                 'uuid' => $this->user->uuid,
                 'username' => $this->user->username,
+                'type' => $this->user->type,
             ],
             'created_at' => $this->created_at,
         ];

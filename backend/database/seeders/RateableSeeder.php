@@ -42,6 +42,14 @@ class RateableSeeder extends Seeder
             'max_value' => 10,
         ]);
         Rateable::create([
+            'name' => 'Transport',
+            'targetable_type' => Apartment::class,
+            'data_type' => Rateable::TYPE_OPINION,
+            'description' => 'How good the public transport in this location is in 1-10 scale.',
+            'min_value' => 1,
+            'max_value' => 10,
+        ]);
+        Rateable::create([
             'name' => 'Overall',
             'targetable_type' => Apartment::class,
             'data_type' => Rateable::TYPE_OPINION,
@@ -88,6 +96,14 @@ class RateableSeeder extends Seeder
             'targetable_type' => City::class,
             'data_type' => Rateable::TYPE_OPINION,
             'description' => 'How fun the city is in 1-10 scale.',
+            'min_value' => 1,
+            'max_value' => 10,
+        ]);
+        Rateable::create([
+            'name' => 'Transport',
+            'targetable_type' => City::class,
+            'data_type' => Rateable::TYPE_OPINION,
+            'description' => 'How well does the public transport work in the city in 1-10 scale.',
             'min_value' => 1,
             'max_value' => 10,
         ]);

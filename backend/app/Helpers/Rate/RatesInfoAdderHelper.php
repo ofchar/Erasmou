@@ -32,7 +32,7 @@ class RatesInfoAdderHelper
                         $maxAdjusted = $maxAdjusted + abs($min);
                         $valueAdjusted = $valueAdjusted + abs($min);
                     }
-                    else if ($min > 0) {
+                    else if ($min >= 0) {
                         $maxAdjusted = $maxAdjusted - $min;
                         $valueAdjusted = $valueAdjusted - $min;
                     }

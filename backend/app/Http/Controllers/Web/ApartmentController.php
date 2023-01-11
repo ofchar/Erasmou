@@ -73,7 +73,9 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return new ApartmentResource($apartment);
+        $data = RatesInfoAdderHelper::addRates([$apartment], Apartment::class);
+
+        return new ApartmentResource($data[0]);
     }
 
     /**
