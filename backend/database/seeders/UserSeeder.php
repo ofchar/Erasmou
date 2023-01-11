@@ -21,12 +21,12 @@ class UserSeeder extends Seeder
             ->create();
 
         User::create([
-            'username' => 'theDestroyer',
-            'first_name' => 'the',
-            'last_name' => 'destroyer',
-            'email' => 'thedestroyer@69420.2137',
-            'phone' => '69696969',
-            'bio' => 'elko',
+            'username' => 'ofchar',
+            'first_name' => 'Mateusz',
+            'last_name' => 'Owczarek',
+            'email' => '230460@edu.p.lodz.pl',
+            'phone' => '+48 720880889',
+            'bio' => 'hi im the best',
             'type' => 100,
             'country_id' => 1,
             'city_id' => 1,
