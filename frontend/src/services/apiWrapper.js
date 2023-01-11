@@ -16,6 +16,7 @@ export default class apiWrapper {
         this.instance.interceptors.response.use(function (response) {
             return response;
         }, function (error) {
+            console.log(error);
             if (error.response) {
                 if (error.response.status == 401) {
                     localStorage.removeItem('user');
@@ -27,9 +28,21 @@ export default class apiWrapper {
                         text: 'You need to be logged in to do this!',
                     }).then((result) => {
                         window.location.replace('/login');
-                    })
+                    });
 
                     return;
+                }
+
+                if (error.response.status == 403) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'You do not have permissions to do this!',
+                    }).then((result) => {
+                        //
+                    });
+
+                    return Promise.reject();
                 }
             }
 
