@@ -16,18 +16,28 @@
                     </div>
                 </div>
 
-                <label class="mt-4 h5">Your details:</label>
+                <div class="row mt-5 mb-2">
+                    <div class="col">
+                        <label class="h5">Your details:</label>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-dark" @click="editing = (editing ? false : true)">Edit</button>
+                    </div>
+                </div>
                 <div class="row justify-content-start">
                     <div class="col">
                         <label class="mt-2">Username</label>
-                        <div>{{ user.username }}</div>
+                        <div v-if="!editing">{{ user.username }}</div>
+                        <input class="form-control" v-else v-model="editUsername"/>
 
                         <label class="mt-2">Email</label>
-                        <div>{{ user.email }}</div>
+                        <div v-if="!editing">{{ user.email }}</div>
+                        <input class="form-control" v-else v-model="editEmail"/>
                     </div>
                     <div class="col">
                         <label class="mt-2">Phone</label>
-                        <div>{{ user.username }}</div>
+                        <div v-if="!editing">{{ user.phone }}</div>
+                        <input class="form-control" v-else v-model="editPhone"/>
 
                         <label class="mt-2">Country, city</label>
                         <div>{{ user.country.name }}, {{ user.city.name }}</div>
@@ -36,7 +46,12 @@
 
                 <div class="row justify-content-start">
                     <label class="mt-2">Bio</label>
-                    <div>{{ user.bio }}</div>
+                    <div v-if="!editing">{{ user.bio }}</div>
+                    <textarea class="form-control" v-else v-model="editBio"/>
+                </div>
+
+                <div class="row">
+                    <button v-if="editing" class="mt-3 btn btn-dark form-control" @click="saveChanges">Save changes</button>
                 </div>
             </div>
         </div>
@@ -86,7 +101,9 @@ export default {
                 30: 'Verified Erasmus',
                 40: 'ESN member',
                 100: 'Admin',
-            }
+            },
+
+            editing: false,
         }
     },
 
@@ -122,10 +139,34 @@ export default {
             var modal = Modal.getInstance(myModalEl);
             modal.hide();
         },
+
+        saveChanges: function () {
+            this.$api
+                .update('users', this.user.uuid, {
+                    'username': this.editUsername,
+                    'phone': this.editPhone,
+                    'email': this.editEmail,
+                    'bio': this.editBio,
+                })
+                .then((response) => {
+                    showSwal(this, 3, 'Success!', 'Changes will appear after a relog')
+                    .then((action) => {
+                        this.editing = false;
+                    });
+                })
+                .catch((error) => {
+                    showSwal(this, 1, 'Ooops', 'This did not work :(');
+                });
+        },
     },
 
     mounted() {
         this.user = JSON.parse(localStorage.getItem('user'));
+
+        this.editUsername = this.user.username;
+        this.editEmail = this.user.email;
+        this.editPhone = this.user.phone;
+        this.editBio = this.user.bio;
     },
 }
 </script>

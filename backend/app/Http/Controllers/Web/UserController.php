@@ -116,12 +116,25 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'username' => 'nullable|string',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string',
+            'bio' => 'nullable|string',
+        ]);
+
+        $user->username = $request->username ?? $user->username;
+        $user->email = $request->email ?? $user->email;
+        $user->phone = $request->phone ?? $user->phone;
+        $user->bio = $request->bio ?? $user->bio;
+        $user->save();
+
+        return new UserResource($user);
     }
 
     /**

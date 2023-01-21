@@ -57,7 +57,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('rates', RateController::class)->except('index', 'show');
 
     Route::put('users/{user}/verify', [UserController::class, 'verify']);
-    Route::apiResource('users', UserController::class)->only('create');
+    Route::apiResource('users', UserController::class)->only('create', 'update');
 
     Route::apiResource('verification-codes', VerificationCodeController::class);
 });
