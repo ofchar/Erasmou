@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</header>
-		<!-- Icons Grid-->
+
 		<section class="features-icons bg-light text-center">
 			<div class="container">
 				<div class="row">
@@ -114,7 +114,6 @@ export default {
 
 header.masthead {
     background-color: rgb(93, 93, 93);
-    // background: url('../assets/img/bg-masthead.jpg') no-repeat center center;
     background-size: cover;
     padding-top: 8rem;
     padding-bottom: 8rem;

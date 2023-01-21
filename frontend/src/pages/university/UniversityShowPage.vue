@@ -31,35 +31,18 @@
             <div class="card-body">
                 <div class="bordered p-1">
                     <div class="row m-2 align-items-center text-center">
-                        <div class="col-md-3 text-start">Name</div>
-                        <div class="col-md-5">Description</div>
-                        <!-- <div class="col-md-1">Opinion</div>
-                        <div class="col-md-1">Prices</div>
-                        <div class="col-md-1">Fun</div>
-                        <div class="col-md-2">Universities</div>
-                        <div class="col-md-2">Esn Sections</div> -->
+                        <div class="col text-start">Name</div>
+                        <div class="col">Description</div>
                     </div>
                 </div>
 
                 <div v-for="faculty in faculties">
                     <div class="hvr p-1" @mouseenter="faculty.collapsed = true" @mouseleave="faculty.collapsed = false">
                         <div class="row m-2 align-items-center text-center">
-                            <div class="col-md-3 text-start">{{ faculty.name }}</div>
-                            <div class="col-md-5">{{ faculty.description }}</div>
-                            <!-- <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-1"><RankIconDisplayComponentVue value="1"/></div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-2">1</div> -->
+                            <div class="col text-start">{{ faculty.name }}</div>
+                            <div class="col">{{ faculty.description }}</div>
                         </div>
                     </div>
-                    <CollapseTransition>
-                        <div class="container hvred" v-show="faculty.collapsed">
-                            <div class="row p-2 m-2" v-for="faculty in faculty.faculties">
-                                {{faculty.name}}
-                            </div>
-                        </div>
-                    </CollapseTransition>
                 </div>
             </div>
             <div class="card-footer">
@@ -108,9 +91,7 @@ export default {
     },
 
     watch: {
-        // universitiesSearch: function (value) {
-        //     this.loadFaculties(value);
-        // }
+        //
     },
     computed: {
         //
@@ -129,7 +110,6 @@ export default {
             this.$api
                 .index('faculties', {
                     'filter[university_uuid]': this.uuid,
-                    // 'filter[search]': search,
                 })
                 .then((response) => {
                     this.faculties = response.data.data;

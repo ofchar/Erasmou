@@ -119,9 +119,7 @@ export default {
     },
 
     watch: {
-        // universitiesSearch: function (value) {
-        //     this.loadPosts(value);
-        // }
+        //
     },
     computed: {
         loggedIn: function () {
@@ -142,7 +140,6 @@ export default {
             this.$api
                 .index('posts', {
                     'filter[forum_uuid]': this.uuid,
-                    // 'filter[search]': search,
                 })
                 .then((response) => {
                     this.posts = response.data.data;
