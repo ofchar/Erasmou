@@ -1,11 +1,13 @@
 <template>
-    <NavbarComponent />
+    <div class="my-app">
+        <NavbarComponent />
 
-    <div class="container app-content">
-        <router-view />
+        <div class="container app-content">
+            <router-view />
+        </div>
+
+        <FooterComponent />
     </div>
-
-    <FooterComponent />
 </template>
 
 <script>
@@ -34,7 +36,17 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 80px;
+    margin-bottom:70px;
     overflow:auto;
-    padding-bottom:70px;
+}
+
+html {
+    background-color: #cccccd;
+}
+</style>
+
+<style scoped>
+* {
+    background-color: #cccccd;
 }
 </style>
