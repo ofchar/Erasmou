@@ -11,18 +11,18 @@ RUN add-apt-repository ppa:ondrej/php
 
 RUN apt-get -y install \
     apache2 \
-    php8.1 \
+    php8.2 \
     php-pgsql \
-    libapache2-mod-php8.1 \
+    libapache2-mod-php8.2 \
     curl \
     php-curl \
     nano \
-    php8.1-xml \
+    php8.2-xml \
     php-zip \
     php-bcmath \
     php-tokenizer \
     php-mbstring \
-    php8.1-common \
+    php8.2-common \
     php-gd \
     php-cli \
     git \
@@ -32,7 +32,7 @@ RUN apt-get -y install \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Enable apache mods.
-RUN a2enmod php8.1
+RUN a2enmod php8.2
 RUN a2enmod rewrite
 RUN a2enmod ssl
 RUN apachectl -t -D DUMP_MODULES | grep rewrite
@@ -41,8 +41,8 @@ RUN a2ensite default-ssl
 # RUN a2ensite apache-config.conf
 
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
-RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/8.1/apache2/php.ini
-RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php/8.1/apache2/php.ini
+RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/8.2/apache2/php.ini
+RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php/8.2/apache2/php.ini
 
 # Manually set up the apache environment variables
 ENV APACHE_RUN_USER www-data
