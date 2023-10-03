@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Web\CountryResource;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -27,6 +28,8 @@ class CountryController extends Controller
                 'name',
                 'created_at',
             )
+            ->withCount('cities')
+            ->withCount('universities')
             ->paginate(15);
 
         return CountryResource::collection($data);

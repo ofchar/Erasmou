@@ -21,6 +21,8 @@ class CountryResource extends JsonResource
             'flag_url' => $this->flag_url,
             'description' => $this->description,
             'population' => $this->population,
+            'cities_count' => $this->cities_count,
+            'universities_count' => $this->universities_count,
         ];
     }
 }
