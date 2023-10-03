@@ -17,7 +17,9 @@ const Vue = createApp(App)
     .component('font-awesome-icon', FontAwesomeIcon)
     .component('v-select', vSelect);
 
-import "bootstrap/dist/css/bootstrap.min.css"
+//
+import "@/scss/app.scss";
+
 import "bootstrap"
 
 import router from './routes';

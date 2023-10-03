@@ -1,4 +1,4 @@
-export const showSwal = function (self, type, title, body = null) {
+export const showSwal = function (self, type, title, body = null, timer = null) {
     let icon = null;
 
     switch (type) {
@@ -20,5 +20,7 @@ export const showSwal = function (self, type, title, body = null) {
         icon: icon,
         title: title ?? 'Oops...',
         text: body,
+        timer: timer,
+        timerProgressBar: timer != null,
     });
 }

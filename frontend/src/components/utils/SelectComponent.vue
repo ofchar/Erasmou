@@ -1,7 +1,8 @@
 <template>
     <div>
-        <v-select class="bg-light text-dark" :options="options" label="name" v-model="query" @search="searchData"
-            v-bind:class="{ disabled: blocked }"/>
+        <v-select class="bg-light text-dark rounded" :options="options" label="name" v-model="query" @search="searchData"
+            v-bind:class="{ disabled: blocked }" :placeholder="placeholder">
+        </v-select>
     </div>
 </template>
 
@@ -15,6 +16,7 @@ export default {
         'modelValue': String,
         'blocked': Boolean,
         'additionalParams': Object,
+        'placeholder': String,
     },
     emits: [
         'update:modelValue',
@@ -36,7 +38,7 @@ export default {
                 this.loadData();
             },
             deep: true
-    }
+        }
     },
     computed: {
         //
@@ -81,4 +83,5 @@ export default {
     background-color: #eef1f6;
     border-color: #d1dbe5;
 }
+
 </style>

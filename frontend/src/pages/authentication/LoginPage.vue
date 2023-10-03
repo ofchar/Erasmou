@@ -8,23 +8,23 @@
 
                             <div class="mb-md-5 mt-md-4 pb-5">
 
-                                <h2 class="fw-bold mb-2">erasmou</h2>
-                                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                                <h2 class="fw-bold mb-2">Welcome back!</h2>
+                                <p class="text-white-50 mb-5">Please fill your credentials.</p>
 
                                 <div class="mb-4">
-                                    <input type="email" v-model="email" class="form-control form-control-lg" />
+                                    <input type="email" v-model="email" class="form-control form-control-lg text-center" placeholder="Email"/>
                                     <label class="form-label">Email</label>
                                 </div>
 
                                 <div>
-                                    <input type="password" v-model="password" class="form-control form-control-lg" />
+                                    <input type="password" v-model="password" class="form-control form-control-lg text-center" placeholder="Password"/>
                                     <label class="form-label">Password</label>
                                 </div>
 
                                 <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
 
                                 <button-component :setClass="'btn btn-lg px-5 ' + buttonClass" @clicked="login()"
-                                    :loading="loading">Login</button-component>
+                                    :loading="loading" :disabled="!isFormValid">Login</button-component>
                             </div>
 
                             <div>
@@ -37,23 +37,12 @@
                 </div>
             </div>
         </div>
-
-        <div id="login_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content bg-dark text-light">
-                    <div class="modal-body text-center">
-                        <h1 class="display-4">Hello</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
 import { showSwal } from '@/services/swalDisplay.js'
 import ButtonComponent from '@/components/nav/ButtonComponent.vue';
-import { Modal } from "bootstrap";
 
 export default {
     components: {
@@ -69,8 +58,6 @@ export default {
             password: null,
 
             loading: false,
-
-            modalRef: null,
         }
     },
 
@@ -78,23 +65,31 @@ export default {
         //
     },
     computed: {
-        buttonClass: function () {
-            if (!this.email || !this.password) {
-                return "btn-outline-warning"
+        isFormValid: function () {
+            if (
+                !this.email ||
+                !this.password
+            ) {
+                return false;
             }
 
-            return "btn-outline-success"
+            return true;
+        },
+        buttonClass: function () {
+            if (!this.isFormValid) {
+                return "btn-outline-warning";
+            }
+
+            return "btn-outline-success";
         }
     },
 
     methods: {
         login: function () {
-            let self = this;
-
             this.loading = true;
 
             this.$api
-            .post('auth/login', {
+                .post('auth/login', {
                     'email': this.email,
                     'password': this.password,
                 })
@@ -102,23 +97,22 @@ export default {
                     localStorage.setItem('user', JSON.stringify(response.data.user));
                     localStorage.setItem('role', response.data.user.type);
 
-                    this.loading = false;
-
-                    this.modalRef.show();
-                    setTimeout(function() {
-                        self.modalRef.hide()
-
-                        window.location.replace('/');
-                    }, 1000);
+                    showSwal(this, 3, 'Hello!', null, 1500)
+                        .then(() => {
+                            window.location.replace('/');
+                        });
                 })
                 .catch((error) => {
-                    showSwal(this, 1, 'Login failed :(');
+                    showSwal(this, 1, 'Login failed :(', 'Your credentials do not match.');
+                })
+                .finally(() => {
+                    this.loading = false;
                 })
         },
     },
 
     mounted() {
-        this.modalRef = new Modal('#login_modal', {})
+        //
     },
 }
 </script>

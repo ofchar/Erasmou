@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" :class="setClass" @click="clicked">
+        <button type="button" :class="setClass" @click="clicked" :disabled="disabled">
             <div v-if="loading" class="spinner-border spinner-border-sm"></div>
             <div v-else><slot></slot></div>
         </button>
@@ -19,6 +19,9 @@ export default {
         loading: {
             default: false,
         },
+        disabled: {
+            default: false,
+        }
     },
 
     data() {
